@@ -3,8 +3,8 @@
 -**Current Goal: Prove the text goes in, the model detects bias and the results are shown.**  
 
 # Project Status  
--**ML (NLP)**: Model Completed (Fine-tuned DistilBERT with a Validation Loss of 0.0001)  
 -**Data**: CSV Cleaned (3,600 Rows)  
+-**ML (NLP)**: Model Completed (Fine-tuned DistilBERT with a Validation Loss of 0.0001)   
 -**Backend**: Developed FastAPI with 'Mock' Model, (IN PROGRESS)  
 -**Frontend**: Designing UI with 'Mock' Data (IN PROGRESS)  
 -**Validation**: Creating "Secret Test Set" for Audit (IN PROGRESS)  
