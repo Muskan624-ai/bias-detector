@@ -16,3 +16,11 @@ Can be downloaded from here: https://drive.google.com/file/d/1zElJhQHDGEq3avdMpu
 To run this project locally, install the dependencies:
 ```bash
 pip install -r requirements.txt
+
+# Backend Progress (Latest Work)
+
+- Backend repository structure finalized and cleaned
+- Main backend logic updated in `main.py`
+- ML model directory properly separated from backend code
+- Backend prepared for API integration (FastAPI setup in progress)
+- Project structure stabilized for continued development
