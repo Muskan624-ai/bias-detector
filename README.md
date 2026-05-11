@@ -17,7 +17,7 @@ To run this project locally, install the dependencies:
 ```bash
 pip install -r requirements.txt
 
-# Backend Progress (Latest Work)
+## Backend Progress (Latest Work)
 
 - Backend repository structure finalized and cleaned
 - Main backend logic updated in `main.py`
