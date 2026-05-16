@@ -6,7 +6,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🧠 Bias Detector")
+st.title("Bias Detector")
 
 st.write(
     "Paste any article, job description, "
