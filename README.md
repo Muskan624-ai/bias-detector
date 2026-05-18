@@ -27,3 +27,148 @@ pip install -r requirements.txt
 - ML model directory properly separated from backend code
 - Backend prepared for API integration (FastAPI setup in progress)
 - Project structure stabilized for continued development
+
+
+# Bias Detector Frontend
+
+Frontend interface for the **Bias Detector** project.
+
+This frontend allows users to paste text (articles, job descriptions, or statements) and send it to the backend model for **bias analysis**.
+
+The goal of this frontend is to provide an easy testing environment so team members can quickly evaluate model predictions without manually running scripts locally.
+
+---
+
+## Features
+
+- Clean and interactive UI
+- Paste any text for analysis
+- Real-time backend integration
+- Displays:
+  - Bias Type
+  - Confidence Score
+  - Model Prediction Label
+- User-friendly testing environment
+
+---
+
+## Tech Stack
+
+### Frontend
+- Python
+- Streamlit
+
+### Backend Connection
+- FastAPI API integration
+- Requests library
+
+---
+
+## How It Works
+
+1. User enters text in the input box.
+2. Frontend sends request to backend API.
+3. Backend model processes the text.
+4. Prediction result is displayed on screen.
+
+---
+
+## Setup Instructions
+
+### 1. Install Requirements
+
+```bash
+pip install -r requirements.txt
+
+
+## How to Run the Project
+
+### Step 1: Clone the Repository
+
+```bash
+git clone <repository-link>
+cd Bias-detector
+```
+
+---
+
+### Step 2: Install Dependencies
+
+Install required Python libraries:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### Step 3: Install Git LFS (Required for Model File)
+
+Since the model file is large, install Git LFS.
+
+```bash
+git lfs install
+git lfs pull
+```
+
+This downloads the trained model (`model.safetensors`).
+
+---
+
+### Step 4: Run Backend
+
+Open terminal inside project folder:
+
+```bash
+cd Backend
+uvicorn main:app --reload
+```
+
+Backend runs on:
+
+```text
+http://127.0.0.1:8000
+```
+
+Keep this terminal running.
+
+---
+
+### Step 5: Run Frontend
+
+Open a **new terminal** and go to project folder:
+
+```bash
+streamlit run app.py
+```
+
+Frontend runs on:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## Important
+
+Both frontend and backend must run **simultaneously**.
+
+Run:
+
+### Terminal 1
+```bash
+cd Backend
+uvicorn main:app --reload
+```
+
+### Terminal 2
+```bash
+streamlit run app.py
+```
+
+Otherwise, the frontend will show:
+
+```text
+Backend connection failed
+```
