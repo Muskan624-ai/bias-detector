@@ -9,6 +9,15 @@
 -**Frontend**: Designing UI with 'Mock' Data (IN PROGRESS)  
 -**Validation**: Creating "Secret Test Set" for Audit (IN PROGRESS)  
 
+# Datasets
+https://huggingface.co/datasets/mediabiasgroup/BABE
+
+https://huggingface.co/datasets/fairxllm/allsides-8values
+
+https://huggingface.co/datasets/allenai/social_bias_frames
+
+https://uclanlp.github.io/corefBias/overview?utm_source=chatgpt.com
+
 # Model Weights  
 Can be downloaded from here: https://drive.google.com/file/d/1zElJhQHDGEq3avdMpulAeytFiaku4NT-/view?usp=sharing 
 
