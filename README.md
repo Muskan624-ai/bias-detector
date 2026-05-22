@@ -33,10 +33,11 @@ pip install -r requirements.txt
 
 - Backend repository structure finalized and cleaned
 - Main backend logic updated in `main.py`
-- ML model directory properly separated from backend code
-- Backend prepared for API integration (FastAPI setup in progress)
+- FastAPI backend fully connected with DistilBERT model
+- Integrated SHAP-based explainability for prediction reasoning
+- Backend API tested successfully using FastAPI Swagger docs
+- Backend now returns bias prediction, confidence score, and explanation
 - Project structure stabilized for continued development
-
 
 # Bias Detector Frontend
 
