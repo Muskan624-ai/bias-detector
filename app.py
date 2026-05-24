@@ -60,7 +60,7 @@ if st.button("Analyze Bias"):
 
             st.subheader("SHAP Explananiton")
             if result["is_biased"]:
-                st.info(result["expplanation"])
+                st.info(result["explanation"])
             else:
                 st.write(result["explanation"])
 
