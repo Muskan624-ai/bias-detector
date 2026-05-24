@@ -18,8 +18,8 @@ app.add_middleware(
 # Load model
 classifier = pipeline(
     "text-classification",
-    model="Backend/model_new",
-    tokenizer="Backend/model_new"
+    model="./model",
+    tokenizer="./model"
 )
 
 shap_explainer = shap.Explainer(classifier)
