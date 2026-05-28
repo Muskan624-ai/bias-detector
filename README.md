@@ -2,13 +2,6 @@
 -A machine learning project to identify political and media bias.  
 -**Current Goal: Prove the text goes in, the model detects bias and the results are shown.**  
 
-# Project Status  
--**Data**: CSV Cleaned (3,600 Rows)  
--**ML (NLP)**: Model Completed (Fine-tuned DistilBERT with a Validation Loss of 0.0001)   
--**Backend**: Developed FastAPI with 'Mock' Model, (IN PROGRESS)  
--**Frontend**: Designing UI with 'Mock' Data (IN PROGRESS)  
--**Validation**: Creating "Secret Test Set" for Audit (IN PROGRESS)  
-
 # Datasets
 https://huggingface.co/datasets/mediabiasgroup/BABE
 
@@ -19,7 +12,7 @@ https://huggingface.co/datasets/allenai/social_bias_frames
 https://uclanlp.github.io/corefBias/overview?utm_source=chatgpt.com
 
 # Model Weights  
-Can be downloaded from here: https://drive.google.com/file/d/11qemBugvaxTAtzhFMQtjE-LHFpl7EJNo/view?usp=sharing
+Can be downloaded from here: https://drive.google.com/drive/u/0/folders/1zY3jNMk23CEe2QrCC5LXmGA1AhMu5zIg
 
 # Installation
 To run this project locally, install the dependencies:
@@ -33,10 +26,14 @@ pip install -r requirements.txt
 
 - Backend repository structure finalized and cleaned
 - Main backend logic updated in `main.py`
-- FastAPI backend fully connected with DistilBERT model
+- FastAPI backend fully connected with transformer-based NLP model
 - Integrated SHAP-based explainability for prediction reasoning
+- Fixed model label mapping for accurate bias classification
 - Backend API tested successfully using FastAPI Swagger docs
-- Backend now returns bias prediction, confidence score, and explanation
+- Backend now returns:
+  - bias prediction
+  - confidence score
+  - explanation text
 - Project structure stabilized for continued development
 
 # Bias Detector Frontend

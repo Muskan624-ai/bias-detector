@@ -24,7 +24,7 @@ if st.button("Analyze Bias"):
         st.warning("Please enter text first.")
 
     else:
-
+        
         try:
 
             response = requests.post(
@@ -57,6 +57,12 @@ if st.button("Analyze Bias"):
                     "Score",
                     result["confidence"]
                 )
+
+            st.subheader("SHAP Explananiton")
+            if result["is_biased"]:
+                st.info(result["explanation"])
+            else:
+                st.write(result["explanation"])
 
         except Exception as e:
             st.error(

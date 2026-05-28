@@ -18,8 +18,8 @@ app.add_middleware(
 # Load model
 classifier = pipeline(
     "text-classification",
-    model="Backend/model",
-    tokenizer="Backend/model"
+    model="./model",
+    tokenizer="./model"
 )
 
 shap_explainer = shap.Explainer(classifier)
@@ -33,9 +33,13 @@ class InputText(BaseModel):
 def predict(data: InputText):
     result = classifier(data.text)
 
-    label = result[0]["label"]
-    readable_label = "biased" if label == "LABEL_1" else "not_biased"
+    raw_label = result[0]["label"]
     score = result[0]["score"]
+
+    # IMPORTANT:
+    # For this model, LABEL_0 = biased and LABEL_1 = not_biased
+    is_biased = raw_label == "LABEL_0"
+    readable_label = "biased" if is_biased else "not_biased"
 
     try:
         shap_values = shap_explainer([data.text])
@@ -45,16 +49,17 @@ def predict(data: InputText):
         important_words = []
 
         for token, score_array in zip(tokens, importances):
-            if len(score_array) > 1 and score_array[1] > 0.01:
+            # Use LABEL_0 index because LABEL_0 means biased for this model
+            if len(score_array) > 0 and score_array[0] > 0.01:
                 clean_token = token.strip().replace("Ġ", "")
                 if len(clean_token) > 1:
                     important_words.append(clean_token)
 
         important_words = list(set(important_words))
 
-        if label == "LABEL_1" and important_words:
+        if is_biased and important_words:
             explanation = "Top linguistic drivers detected: " + ", ".join(important_words)
-        elif label == "LABEL_1":
+        elif is_biased:
             explanation = "The model detected bias based on the overall context and wording."
         else:
             explanation = "The text appears neutral based on the model prediction."
@@ -63,7 +68,7 @@ def predict(data: InputText):
         explanation = "Explanation could not be generated for this input."
 
     return {
-        "is_biased": label == "LABEL_1",
+        "is_biased": is_biased,
         "confidence": f"{round(score * 100, 2)}%",
         "label": readable_label,
         "explanation": explanation

@@ -5,3 +5,6 @@ scikit-learn
 evaluate
 fastapi
 uvicorn
+streamlit
+shap
+scipy
