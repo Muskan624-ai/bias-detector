@@ -173,7 +173,6 @@ uvicorn main:app --reload
 ```bash
 streamlit run app.py
 ```
-
 Otherwise, the frontend will show:
 
 ```text
