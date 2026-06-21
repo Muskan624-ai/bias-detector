@@ -28,12 +28,23 @@ pip install -r requirements.txt
 - Main backend logic updated in `main.py`
 - FastAPI backend fully connected with transformer-based NLP model
 - Integrated SHAP-based explainability for prediction reasoning
-- Fixed model label mapping for accurate bias classification
+- Migrated from binary classification to multiclass bias detection
+- 
+- Added support for:
+  - Neutral
+  - Political Bias
+  - Gender Bias
+  - Racial Bias
+  - 
 - Backend API tested successfully using FastAPI Swagger docs
+
 - Backend now returns:
   - bias prediction
+  - predicted bias category
   - confidence score
-  - explanation text
+  - SHAP explanation text
+
+- Multiple model versions tested and integrated successfully
 - Project structure stabilized for continued development
 
 # Bias Detector Frontend
