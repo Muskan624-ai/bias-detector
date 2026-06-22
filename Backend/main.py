@@ -21,7 +21,7 @@ CLASS_NAMES = {
     "LABEL_3": "Racial Bias"
 }
 
-MODEL_PATH = "./model6"
+MODEL_PATH = "./model"
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
