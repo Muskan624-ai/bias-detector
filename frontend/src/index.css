@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #080c1a;
+  color: #c8ccd8;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 77, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* Textarea */
+textarea {
+  outline: none;
+  resize: none;
+}
+
+textarea::placeholder {
+  color: rgba(122, 130, 153, 0.6);
+}
+
+/* Smooth scrolling for results */
+.results-scroll {
+  overflow-y: auto;
+  max-height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 77, 255, 0.3) transparent;
+}
+
+/* Lobe canvas sits behind everything */
+#lobe-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@layer utilities {
+  .font-mono-app {
+    font-family: 'Space Mono', monospace;
+  }
+  .font-sans-app {
+    font-family: 'Inter', sans-serif;
+  }
+}
