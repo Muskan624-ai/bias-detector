@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 
 const PILLS = [
@@ -102,7 +102,7 @@ export default function LandingPage({ onStart }) {
               padding: 18px 32px,
               borderRadius: 999,
               background: p.bg,
-              border: `1px solid ${p.border}`,
+              border: "1px solid rgba(139,92,246,0.3)",
               color: p.col,
               userSelect: 'none',
               animation: `pillFloat ${p.floatDur}s ease-in-out infinite`,
