@@ -200,7 +200,7 @@ export default function LobeCanvas({ closing }) {
       ctx.shadowBlur = r.glowBlur
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
-      ctx.globalAlpha = 0.55 + 0.2 * Math.sin(time * 0.8 + r.phase)
+      ctx.globalAlpha = 0.55;
       buildPath()
       ctx.stroke()
       ctx.restore()
