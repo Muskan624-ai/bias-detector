@@ -24,7 +24,7 @@ CLASS_NAMES = {
 <<<<<<< HEAD
 MODEL_PATH = "./model"
 =======
-MODEL_PATH = "./model7"
+MODEL_PATH = "./model"
 >>>>>>> 60c2e56 (Improve bias detection model integration)
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
