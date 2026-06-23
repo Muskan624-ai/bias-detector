@@ -225,17 +225,27 @@ export default function ResultsPage({ result, onBack }) {
             whileTap={{ scale: 0.96 }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 11,
+              fontSize: 16,
               letterSpacing: '3px',
               textTransform: 'uppercase',
-              color: 'rgba(150,162,205,0.5)',
-              padding: '15px 42px',
+              color: '#d4aaff',
+
+              padding: '20px 60px',
+
               borderRadius: 999,
-              border: '1px solid rgba(130,145,190,0.15)',
-              background: 'transparent',
-              backdropFilter: 'blur(8px)',
+
+              border: '1px solid rgba(178,102,255,0.45)',
+
+              background: 'linear-gradient(135deg, rgba(178,102,255,0.12), rgba(88,230,255,0.08))',
+
+              backdropFilter: 'blur(12px)',
+
+              boxShadow: '0 0 35px rgba(178,102,255,0.18)',
+
               cursor: 'pointer',
+
               transition: 'all 0.25s ease',
+          }}
             }}
             onMouseEnter={e => {
               e.currentTarget.style.borderColor = 'rgba(178,102,255,0.4)'
