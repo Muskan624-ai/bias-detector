@@ -112,6 +112,11 @@ cd Bias-detector
 
 ### Step 2: Install Dependencies
 
+Create Virtual Environement
+```bash
+.venv\Scripts\activate
+```
+
 Install required Python libraries:
 
 ```bash
@@ -139,7 +144,7 @@ Open terminal inside project folder:
 
 ```bash
 cd Backend
-uvicorn main:app --reload
+python -m uvicorn main:app --reload
 ```
 
 Backend runs on:
@@ -157,13 +162,15 @@ Keep this terminal running.
 Open a **new terminal** and go to project folder:
 
 ```bash
-streamlit run app.py
+cd frontend
+npm install
+npm run dev
 ```
 
 Frontend runs on:
 
 ```text
-http://localhost:8501
+http://localhost:5173
 ```
 
 ---
@@ -171,21 +178,3 @@ http://localhost:8501
 ## Important
 
 Both frontend and backend must run **simultaneously**.
-
-Run:
-
-### Terminal 1
-```bash
-cd Backend
-uvicorn main:app --reload
-```
-
-### Terminal 2
-```bash
-streamlit run app.py
-```
-Otherwise, the frontend will show:
-
-```text
-Backend connection failed
-```
