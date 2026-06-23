@@ -65,7 +65,7 @@ export default function ResultsPage({ result, onBack }) {
         {/* Bias Type */}
         <motion.div variants={rowVariants}>
           <ResultCard label="Bias Type">
-            <span className="font-mono text-[1.3rem] text-indigo-300 leading-tight">
+            <span className="font-mono text-[2rem] font-semibold text-indigo-200 leading-tight">
               {label || '—'}
             </span>
           </ResultCard>
@@ -75,7 +75,7 @@ export default function ResultsPage({ result, onBack }) {
         <motion.div variants={rowVariants}>
           <ResultCard label="Confidence">
             <div className="flex items-center gap-4 mt-1">
-              <span className="font-mono text-lg text-slate-300 w-16 shrink-0">
+              <span className="font-mono text-2xl font-semibold text-cyan-200 w-24 shrink-0">
                 {confidence || '—'}
               </span>
               <ConfidenceBar value={confNum} />
@@ -86,7 +86,7 @@ export default function ResultsPage({ result, onBack }) {
         {/* Explanation */}
         <motion.div variants={rowVariants}>
           <ResultCard label="Explanation">
-            <p className="text-[0.9rem] text-slate-400 leading-relaxed font-sans font-light">
+            <p className="text-[1.05rem] text-slate-300 leading-8 font-sans">
               {explanation || 'No explanation available.'}
             </p>
           </ResultCard>
@@ -110,15 +110,15 @@ export default function ResultsPage({ result, onBack }) {
 function ResultCard({ label, children }) {
   return (
     <div
-      className="rounded-2xl px-6 py-4"
+      className="rounded-3xl px-8 py-6"
       style={{
-        background: 'rgba(20, 28, 60, 0.50)',
+        background: 'rgba(20, 28, 60, 0.65)',
         border: '1px solid rgba(100, 120, 200, 0.14)',
-        backdropFilter: 'blur(22px)',
-        boxShadow: '0 0 40px rgba(100,120,255,0.08)',
+        backdropFilter: 'blur(28px)',
+        boxShadow: '0 0 60px rgba(120,100,255,0.12)',
       }}
     >
-      <p className="text-[10px] tracking-[2.5px] uppercase text-slate-600 font-mono mb-2">
+      <p className="text-xs tracking-[3px] uppercase text-slate-500 font-mono mb-3">
         {label}
       </p>
       {children}
