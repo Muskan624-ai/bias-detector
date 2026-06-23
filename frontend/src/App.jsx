@@ -7,172 +7,120 @@ import ResultsPage from './components/ResultsPage'
 import { analyzeText } from './api/biasApi'
 
 export default function App() {
-  const [page, setPage] = useState('landing')
-  const [lobeClosing, setLobeClosing] = useState(false)
-  const [result, setResult] = useState(null)
-  const [error, setError] = useState(null)
+  const [page, setPage]         = useState('landing')
+  const [closing, setClosing]   = useState(false)
+  const [result, setResult]     = useState(null)
+  const [error, setError]       = useState(null)
 
-  const withLobeTransition = useCallback((cb) => {
-    setLobeClosing(true)
-    setTimeout(() => {
-      cb()
-      setTimeout(() => setLobeClosing(false), 600)
-    }, 700)
+  const withTransition = useCallback((cb) => {
+    setClosing(true)
+    setTimeout(() => { cb(); setTimeout(() => setClosing(false), 600) }, 700)
   }, [])
 
   const goToAnalysis = useCallback(() => {
-    withLobeTransition(() => setPage('analysis'))
-  }, [withLobeTransition])
+    withTransition(() => setPage('analysis'))
+  }, [withTransition])
 
   const handleAnalyze = useCallback(async (text) => {
     setError(null)
-    withLobeTransition(async () => {
+    withTransition(async () => {
       setPage('loading')
       try {
         const data = await analyzeText(text)
         setResult(data)
         setTimeout(() => {
-          setLobeClosing(true)
-          setTimeout(() => {
-            setPage('results')
-            setTimeout(() => setLobeClosing(false), 600)
-          }, 700)
+          setClosing(true)
+          setTimeout(() => { setPage('results'); setTimeout(() => setClosing(false), 600) }, 700)
         }, 400)
       } catch (err) {
         setError(err.message || 'Analysis failed. Please try again.')
-        setLobeClosing(true)
-        setTimeout(() => {
-          setPage('analysis')
-          setTimeout(() => setLobeClosing(false), 600)
-        }, 700)
+        setClosing(true)
+        setTimeout(() => { setPage('analysis'); setTimeout(() => setClosing(false), 600) }, 700)
       }
     })
-  }, [withLobeTransition])
+  }, [withTransition])
 
-  const goBackToAnalysis = useCallback(() => {
-    withLobeTransition(() => {
-      setResult(null)
-      setError(null)
-      setPage('analysis')
-    })
-  }, [withLobeTransition])
+  const goBack = useCallback(() => {
+    withTransition(() => { setResult(null); setError(null); setPage('analysis') })
+  }, [withTransition])
 
   return (
-    <div className="relative w-full h-full overflow-hidden" style={{ background: '#060912' }}>
-      <LobeCanvas closing={lobeClosing} />
-      <div className="relative z-10 w-full h-full">
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#05080f' }}>
+      <LobeCanvas closing={closing} />
+      <div style={{ position: 'relative', zIndex: 10, width: '100%', height: '100%' }}>
         <AnimatePresence mode="wait">
-          {page === 'landing' && <LandingPage key="landing" onStart={goToAnalysis} />}
-          {page === 'analysis' && (
-            <AnalysisPage
-              key="analysis"
-              onAnalyze={handleAnalyze}
-              error={error}
-              onClearError={() => setError(null)}
-            />
-          )}
-          {page === 'loading' && <LoadingPage key="loading" />}
-          {page === 'results' && result && (
-            <ResultsPage key="results" result={result} onBack={goBackToAnalysis} />
-          )}
+          {page === 'landing'  && <LandingPage  key="landing"  onStart={goToAnalysis} />}
+          {page === 'analysis' && <AnalysisPage key="analysis" onAnalyze={handleAnalyze} error={error} onClearError={() => setError(null)} />}
+          {page === 'loading'  && <LoadingPage  key="loading" />}
+          {page === 'results' && result && <ResultsPage key="results" result={result} onBack={goBack} />}
         </AnimatePresence>
       </div>
     </div>
   )
 }
 
-// ── Premium loading screen ────────────────────────────────────────────────────
-const LOADING_MESSAGES = [
+// ── Premium Loading Page ─────────────────────────────────────────────────────
+const MSGS = [
   'Analyzing text…',
   'Detecting bias patterns…',
   'Evaluating linguistic drivers…',
-  'Generating results…',
+  'Generating report…',
 ]
 
 function LoadingPage() {
-  const [msgIndex, setMsgIndex] = useState(0)
-  const [visible, setVisible] = useState(true)
+  const [idx, setIdx] = useState(0)
+  const [show, setShow] = useState(true)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setVisible(false)
-      setTimeout(() => {
-        setMsgIndex(i => (i + 1) % LOADING_MESSAGES.length)
-        setVisible(true)
-      }, 350)
+    const iv = setInterval(() => {
+      setShow(false)
+      setTimeout(() => { setIdx(i => (i + 1) % MSGS.length); setShow(true) }, 360)
     }, 2200)
-    return () => clearInterval(interval)
+    return () => clearInterval(iv)
   }, [])
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-0">
-      {/* Orb */}
-      <div className="relative mb-10" style={{ width: 80, height: 80 }}>
-        {/* Outer slow ring */}
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            border: '1px solid rgba(178,102,255,0.2)',
-            animation: 'spin 3s linear infinite',
-          }}
-        />
-        {/* Mid ring */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            inset: 10,
-            border: '1px solid rgba(88,230,255,0.25)',
-            animation: 'spin 2s linear infinite reverse',
-          }}
-        />
-        {/* Inner fast ring */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            inset: 22,
-            border: '1.5px solid rgba(178,102,255,0.5)',
-            borderTopColor: '#B266FF',
-            animation: 'spin 0.75s linear infinite',
-          }}
-        />
-        {/* Core glow dot */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            inset: 32,
-            background: '#B266FF',
-            boxShadow: '0 0 16px 4px rgba(178,102,255,0.6)',
-            animation: 'pulse 1.8s ease-in-out infinite',
-          }}
-        />
+    <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      {/* Concentric spinning rings */}
+      <div style={{ position: 'relative', width: 96, height: 96, marginBottom: 44 }}>
+        <div className="spin-cw"  style={{ position: 'absolute', inset: 0,  borderRadius: '50%', border: '1px solid rgba(178,102,255,0.22)' }} />
+        <div className="spin-ccw" style={{ position: 'absolute', inset: 14, borderRadius: '50%', border: '1px solid rgba(88,230,255,0.28)' }} />
+        <div className="spin-fast"style={{ position: 'absolute', inset: 28, borderRadius: '50%', border: '1.5px solid transparent', borderTopColor: '#B266FF', borderRightColor: 'rgba(178,102,255,0.3)' }} />
+        {/* Core */}
+        <div style={{
+          position: 'absolute', inset: 40, borderRadius: '50%',
+          background: '#B266FF',
+          boxShadow: '0 0 20px 6px rgba(178,102,255,0.55)',
+          animation: 'nodePulse 1.8s ease-in-out infinite',
+        }} />
       </div>
 
       {/* Cycling message */}
       <motion.p
-        key={msgIndex}
+        key={idx}
         initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -6 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="font-mono text-center select-none"
+        animate={{ opacity: show ? 1 : 0, y: show ? 0 : -7 }}
+        transition={{ duration: 0.32, ease: 'easeOut' }}
         style={{
-          fontSize: '0.8rem',
-          letterSpacing: '2.5px',
-          color: 'rgba(178,102,255,0.75)',
+          fontFamily: "'Space Mono', monospace",
+          fontSize: 12,
+          letterSpacing: '3px',
           textTransform: 'uppercase',
+          color: 'rgba(178,102,255,0.8)',
           minHeight: '1.4em',
+          textAlign: 'center',
         }}
       >
-        {LOADING_MESSAGES[msgIndex]}
+        {MSGS[idx]}
       </motion.p>
 
       {/* Progress dots */}
-      <div className="flex gap-2 mt-5">
-        {[0, 1, 2, 3].map(i => (
+      <div style={{ display: 'flex', gap: 8, marginTop: 22 }}>
+        {[0,1,2,3].map(i => (
           <motion.div
             key={i}
-            className="rounded-full"
-            style={{ width: 5, height: 5, background: 'rgba(178,102,255,0.4)' }}
-            animate={{ opacity: [0.25, 1, 0.25], scale: [0.8, 1.15, 0.8] }}
+            style={{ width: 5, height: 5, borderRadius: '50%', background: 'rgba(178,102,255,0.38)' }}
+            animate={{ opacity: [0.2, 1, 0.2], scale: [0.7, 1.2, 0.7] }}
             transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.22, ease: 'easeInOut' }}
           />
         ))}
