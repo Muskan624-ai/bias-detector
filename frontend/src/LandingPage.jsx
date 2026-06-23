@@ -97,10 +97,10 @@ export default function LandingPage({ onStart }) {
             transition={{ duration: 0.7, delay: p.delay, ease: [0.22,1,0.36,1] }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 22,
+              fontSize: '22px',
               letterSpacing: '3px',
-              padding: 18px 32px,
-              borderRadius: 999,
+              padding: '18px 32px',
+              borderRadius: '999px',
               background: p.bg,
               border: "1px solid rgba(139,92,246,0.3)",
               color: p.col,
