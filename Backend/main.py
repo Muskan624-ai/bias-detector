@@ -21,11 +21,7 @@ CLASS_NAMES = {
     "LABEL_3": "Racial Bias"
 }
 
-<<<<<<< HEAD
 MODEL_PATH = "./model"
-=======
-MODEL_PATH = "./model"
->>>>>>> 60c2e56 (Improve bias detection model integration)
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
