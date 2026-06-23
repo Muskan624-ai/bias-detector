@@ -1,148 +1,198 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { CTAButton } from './LandingPage'
 
-const pageVariants = {
+const pv = {
   hidden: { opacity: 0, y: 30 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1], staggerChildren: 0.12 },
-  },
-  exit: {
-    opacity: 0,
-    y: -20,
-    transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
-  },
+  show:  { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22,1,0.36,1], staggerChildren: 0.13 } },
+  exit:  { opacity: 0, y: -18, transition: { duration: 0.35, ease: [0.4,0,0.2,1] } },
 }
-
-const childVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] } },
+const ch = {
+  hidden: { opacity: 0, y: 24 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22,1,0.36,1] } },
 }
 
 export default function AnalysisPage({ onAnalyze, error, onClearError }) {
   const [text, setText] = useState('')
+  const [focused, setFocused] = useState(false)
   const [loading, setLoading] = useState(false)
-  const textareaRef = useRef(null)
+  const ref = useRef(null)
 
   useEffect(() => {
-    // Focus textarea when page mounts
-    setTimeout(() => textareaRef.current?.focus(), 300)
+    const t = setTimeout(() => ref.current?.focus(), 300)
+    return () => clearTimeout(t)
   }, [])
 
   const handleAnalyze = async () => {
-    if (!text.trim()) return
+    if (!text.trim() || loading) return
     onClearError?.()
     setLoading(true)
-    try {
-      await onAnalyze(text.trim())
-    } finally {
-      setLoading(false)
-    }
+    try { await onAnalyze(text.trim()) }
+    finally { setLoading(false) }
   }
 
-  const handleKeyDown = (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      handleAnalyze()
-    }
-  }
-
-  const charCount = text.length
+  const handleKey = (e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') handleAnalyze() }
+  const canGo = text.trim().length > 0 && !loading
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center px-6"
-      variants={pageVariants}
-      initial="hidden"
-      animate="show"
-      exit="exit"
+      className="absolute inset-0 flex flex-col items-center justify-center"
+      style={{ padding: '32px 5vw' }}
+      variants={pv} initial="hidden" animate="show" exit="exit"
     >
-      {/* Title */}
-      <motion.h1
-        variants={childVariants}
-        className="font-mono text-[clamp(1.6rem,3.5vw,2.6rem)] text-slate-400 tracking-tight text-center mb-8"
-      >
-        Bias&#8209;Detector
-      </motion.h1>
-
-      {/* Textarea card */}
-      <motion.div
-        variants={childVariants}
-        className="w-full max-w-[1100px]"
-      >
-        <div
-          className="relative rounded-[20px] overflow-hidden"
-          style={{
-            background: 'rgba(20, 25, 55, 0.65)',
-            border: error
-              ? '1px solid rgba(220,80,80,0.4)'
-              : '1px solid rgba(155, 110, 220, 0.20)',
-            backdropFilter: 'blur(28px)',
-            transition: 'border-color 0.3s',
-          }}
-        >
-          <textarea
-            ref={textareaRef}
-            value={text}
-            onChange={(e) => { setText(e.target.value); onClearError?.() }}
-            onKeyDown={handleKeyDown}
-            placeholder="Paste any article, job description, or statement to detect bias."
-            className="w-full h-[450px] bg-transparent px-8 py-7 text-[1.05rem] text-slate-200 leading-relaxed font-sans focus:outline-none"
-            style={{ caretColor: '#a07aff' }}
-            disabled={loading}
-          />
-
-          {/* Char count */}
-          {charCount > 0 && (
-            <div className="absolute bottom-3 right-4 text-[11px] text-slate-600 font-mono select-none">
-              {charCount.toLocaleString()} chars
-            </div>
-          )}
-        </div>
-
-        {/* Error message */}
-        {error && (
-          <motion.p
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-3 text-sm text-red-400/80 font-sans text-center"
-          >
-            {error}
-          </motion.p>
-        )}
-
-        {/* Hint */}
-        <p className="mt-2 text-center text-[11px] text-slate-700 font-mono">
-          Ctrl+Enter to analyze
+      {/* Page header */}
+      <motion.div variants={ch} style={{ textAlign: 'center', marginBottom: 40 }}>
+        <h1 style={{
+          fontFamily: "'Space Mono', monospace",
+          fontSize: 'clamp(22px, 2.8vw, 38px)',
+          fontWeight: 400,
+          color: 'rgba(210,218,240,0.65)',
+          letterSpacing: '-0.5px',
+          marginBottom: 8,
+        }}>
+          Bias&#8209;Detector
+        </h1>
+        <p style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 13,
+          color: 'rgba(140,152,190,0.5)',
+          letterSpacing: '1px',
+        }}>
+          AI-powered language bias analysis workspace
         </p>
       </motion.div>
 
-      {/* Analyze button */}
-      <motion.div variants={childVariants} className="mt-6">
-        <button
-          onClick={handleAnalyze}
-          disabled={loading || !text.trim()}
-          className="group relative font-mono text-sm tracking-widest text-white px-10 py-4 rounded-full border border-purple-glow/40 bg-purple-glow/10 backdrop-blur-sm transition-all duration-300 hover:border-purple-glow/70 hover:bg-purple-glow/20 hover:shadow-[0_0_40px_rgba(124,77,255,0.35)] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-purple-glow/40 disabled:hover:bg-purple-glow/10 disabled:hover:shadow-none"
+      {/* ── Main workspace card ── */}
+      <motion.div variants={ch} style={{ width: '100%', maxWidth: 'min(1200px, 92vw)' }}>
+
+        {/* Workspace panel */}
+        <div
+          className={focused ? 'textarea-focus-glow' : ''}
+          style={{
+            position: 'relative',
+            borderRadius: 20,
+            background: 'rgba(12,16,38,0.82)',
+            border: error
+              ? '1px solid rgba(220,70,70,0.5)'
+              : focused
+              ? '1px solid rgba(178,102,255,0.45)'
+              : '1px solid rgba(178,102,255,0.2)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            overflow: 'hidden',
+            boxShadow: '0 40px 100px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.055)',
+            transition: 'border-color 0.3s',
+          }}
         >
-          {loading ? (
-            <span className="flex items-center gap-2">
-              <SpinnerIcon />
-              Analyzing…
+          {/* Top shimmer strip */}
+          <div style={{
+            position: 'absolute', top: 0, left: 40, right: 40, height: 1, pointerEvents: 'none',
+            background: 'linear-gradient(90deg, transparent, rgba(178,102,255,0.35), rgba(88,230,255,0.25), transparent)',
+          }} />
+
+          {/* Workspace header bar */}
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '16px 28px 14px',
+            borderBottom: '1px solid rgba(178,102,255,0.1)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              {/* Traffic-light dots */}
+              {['rgba(255,95,87,0.55)', 'rgba(255,189,46,0.45)', 'rgba(40,200,100,0.5)'].map((c, i) => (
+                <span key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c, display: 'block' }} />
+              ))}
+            </div>
+            <span style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 10,
+              letterSpacing: '3px',
+              color: 'rgba(130,145,185,0.4)',
+              textTransform: 'uppercase',
+            }}>
+              Input · Bias Analysis
             </span>
-          ) : (
-            'Analyze Bias'
-          )}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-glow/0 via-purple-glow/10 to-cyan-glow/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-        </button>
+            <span style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 10,
+              color: 'rgba(100,115,160,0.4)',
+              letterSpacing: '1px',
+            }}>
+              {text.length > 0 ? `${text.length.toLocaleString()} chars` : ''}
+            </span>
+          </div>
+
+          {/* Textarea */}
+          <textarea
+            ref={ref}
+            value={text}
+            onChange={e => { setText(e.target.value); onClearError?.() }}
+            onKeyDown={handleKey}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            disabled={loading}
+            placeholder="Paste any article, job description, or statement to detect bias…"
+            style={{
+              width: '100%',
+              height: 'clamp(320px, 42vh, 520px)',
+              background: 'transparent',
+              border: 'none',
+              padding: '28px 32px',
+              fontFamily: "'Inter', sans-serif",
+              fontSize: 'clamp(15px, 1.3vw, 18px)',
+              fontWeight: 300,
+              lineHeight: 1.85,
+              color: 'rgba(210,220,245,0.9)',
+              caretColor: '#B266FF',
+            }}
+          />
+
+          {/* Footer bar */}
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '12px 28px 14px',
+            borderTop: '1px solid rgba(178,102,255,0.08)',
+          }}>
+            <span style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 10,
+              letterSpacing: '2.5px',
+              color: 'rgba(110,125,170,0.38)',
+              textTransform: 'uppercase',
+            }}>
+              Ctrl + Enter to analyze
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: focused ? '#B266FF' : 'rgba(120,130,170,0.3)', boxShadow: focused ? '0 0 10px #B266FF' : 'none', transition: 'all 0.3s' }} />
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'rgba(110,125,170,0.4)', letterSpacing: '1.5px' }}>
+                {focused ? 'EDITING' : 'IDLE'}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Error */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{
+              marginTop: 14, padding: '14px 24px', borderRadius: 14, textAlign: 'center',
+              fontFamily: "'Inter', sans-serif", fontSize: 14,
+              background: 'rgba(220,60,60,0.1)', border: '1px solid rgba(220,60,60,0.25)',
+              color: 'rgba(255,140,140,0.9)',
+            }}
+          >
+            {error}
+          </motion.div>
+        )}
+      </motion.div>
+
+      {/* CTA */}
+      <motion.div variants={ch} style={{ marginTop: 36 }}>
+        <CTAButton onClick={handleAnalyze} disabled={!canGo} loading={loading}>
+          {loading ? 'Analyzing…' : 'Analyze Bias'}
+        </CTAButton>
       </motion.div>
     </motion.div>
-  )
-}
-
-function SpinnerIcon() {
-  return (
-    <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" strokeLinecap="round" />
-    </svg>
   )
 }
