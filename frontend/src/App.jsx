@@ -4,7 +4,7 @@ import LobeCanvas from "./LobeCanvas";
 import LandingPage from "./LandingPage";
 import AnalysisPage from "./AnalysisPage";
 import ResultsPage from "./ResultsPage";
-import { analyzeText } from './api/biasApi'
+import { analyzeText } from './biasApi'
 
 export default function App() {
   const [page, setPage]         = useState('landing')
