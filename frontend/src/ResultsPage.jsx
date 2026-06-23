@@ -2,250 +2,248 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import ConfidenceBar from './ConfidenceBar'
 
-const pageVariants = {
+const pv = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.11, delayChildren: 0.06 },
-  },
-  exit: {
-    opacity: 0,
-    y: -16,
-    transition: { duration: 0.38, ease: [0.4, 0, 0.2, 1] },
-  },
+  show:  { opacity: 1, transition: { duration: 0.5, staggerChildren: 0.1, delayChildren: 0.05 } },
+  exit:  { opacity: 0, y: -16, transition: { duration: 0.36, ease: [0.4,0,0.2,1] } },
+}
+const row = {
+  hidden: { opacity: 0, y: 24 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22,1,0.36,1] } },
 }
 
-const row = {
-  hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.58, ease: [0.22, 1, 0.36, 1] } },
+// ── Shared card shell ────────────────────────────────────────────────────────
+function Card({ children, style = {}, glowColor }) {
+  return (
+    <div style={{
+      position: 'relative',
+      borderRadius: 18,
+      backdropFilter: 'blur(22px)',
+      WebkitBackdropFilter: 'blur(22px)',
+      overflow: 'hidden',
+      ...style,
+    }}>
+      {/* Top shimmer */}
+      <div style={{
+        position: 'absolute', top: 0, left: 32, right: 32, height: 1, pointerEvents: 'none',
+        background: glowColor
+          ? `linear-gradient(90deg, transparent, ${glowColor}44, transparent)`
+          : 'linear-gradient(90deg, transparent, rgba(178,102,255,0.2), transparent)',
+      }} />
+      {children}
+    </div>
+  )
+}
+
+// ── Label ────────────────────────────────────────────────────────────────────
+function Label({ children }) {
+  return (
+    <p style={{
+      fontFamily: "'Space Mono', monospace",
+      fontSize: 10,
+      letterSpacing: '3.5px',
+      textTransform: 'uppercase',
+      color: 'rgba(140,155,195,0.5)',
+      marginBottom: 14,
+    }}>
+      {children}
+    </p>
+  )
 }
 
 export default function ResultsPage({ result, onBack }) {
   const { is_biased, confidence, label, explanation } = result
   const confNum = parseFloat(confidence) || 0
-
-  const accentPurple = '#B266FF'
-  const accentCyan   = '#58E6FF'
-  const accent       = is_biased ? accentPurple : accentCyan
+  const accent  = is_biased ? '#B266FF' : '#58E6FF'
+  const accent2 = is_biased ? '#58E6FF' : '#3AB8FF'
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-start results-scroll"
-      style={{ overflowY: 'auto', padding: '28px 24px 40px' }}
-      variants={pageVariants}
-      initial="hidden"
-      animate="show"
-      exit="exit"
+      className="page-scroll"
+      style={{
+        position: 'absolute', inset: 0,
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        padding: '32px 5vw 48px',
+        overflowY: 'auto',
+      }}
+      variants={pv} initial="hidden" animate="show" exit="exit"
     >
-      {/* Page title */}
-      <motion.h1
-        variants={row}
-        className="font-mono text-center tracking-tight mb-7 shrink-0 select-none"
-        style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)', color: 'rgba(200,210,230,0.5)' }}
-      >
-        Bias&#8209;Detector
-      </motion.h1>
+      {/* Page header */}
+      <motion.div variants={row} style={{ textAlign: 'center', marginBottom: 36 }}>
+        <h1 style={{
+          fontFamily: "'Space Mono', monospace",
+          fontSize: 'clamp(20px, 2.5vw, 34px)',
+          fontWeight: 400,
+          color: 'rgba(200,210,235,0.55)',
+          letterSpacing: '-0.5px',
+          marginBottom: 6,
+        }}>
+          Bias&#8209;Detector
+        </h1>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: 'rgba(130,145,185,0.4)', letterSpacing: '1.5px' }}>
+          Analysis Report
+        </p>
+      </motion.div>
 
-      {/* ── Main panel ── */}
-      <div className="w-full flex flex-col gap-4 shrink-0" style={{ maxWidth: 'min(900px, 93vw)' }}>
+      {/* ── Panel ── */}
+      <div style={{ width: '100%', maxWidth: 'min(1100px, 93vw)', display: 'flex', flexDirection: 'column', gap: 16 }}>
 
-        {/* ── Row 1: status strip (two pills side-by-side) ── */}
-        <motion.div variants={row} className="grid grid-cols-2 gap-3">
-          {/* Analysis Complete */}
-          <div
-            className="flex items-center justify-center gap-2.5 rounded-2xl font-mono tracking-widest"
-            style={{
-              padding: '16px 20px',
-              fontSize: '0.8rem',
-              background: 'rgba(50,140,80,0.13)',
-              border: '1px solid rgba(60,160,90,0.3)',
-              color: '#6dcea0',
-            }}
-          >
-            <span
-              className="w-2 h-2 rounded-full shrink-0"
-              style={{ background: '#4caf77', boxShadow: '0 0 8px #4caf77' }}
-            />
-            Analysis Complete
-          </div>
-
-          {/* Bias / Neutral badge */}
-          <div
-            className="flex items-center justify-center gap-2.5 rounded-2xl font-mono tracking-widest"
-            style={{
-              padding: '16px 20px',
-              fontSize: '0.8rem',
-              background: is_biased ? 'rgba(170,50,50,0.15)' : 'rgba(40,120,190,0.13)',
-              border: is_biased ? '1px solid rgba(200,60,60,0.32)' : '1px solid rgba(60,150,220,0.28)',
-              color: is_biased ? '#f08888' : '#7acbf0',
-            }}
-          >
-            <span
-              className="w-2 h-2 rounded-full shrink-0"
-              style={{
+        {/* ── Status row ── */}
+        <motion.div variants={row} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+          {/* Analysis complete */}
+          <Card style={{ background: 'rgba(40,120,70,0.12)', border: '1px solid rgba(55,160,85,0.28)', padding: '18px 28px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#4fc87a', boxShadow: '0 0 10px #4fc87a', flexShrink: 0 }} />
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 13, letterSpacing: '2px', color: '#6dcea0' }}>
+                Analysis Complete
+              </span>
+            </div>
+          </Card>
+          {/* Biased / Neutral */}
+          <Card style={{
+            background: is_biased ? 'rgba(160,45,45,0.14)' : 'rgba(35,110,180,0.12)',
+            border: is_biased ? '1px solid rgba(200,55,55,0.3)' : '1px solid rgba(55,140,210,0.28)',
+            padding: '18px 28px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{
+                width: 9, height: 9, borderRadius: '50%', flexShrink: 0,
                 background: is_biased ? '#e06060' : '#50aadd',
-                boxShadow: is_biased ? '0 0 8px #e06060' : '0 0 8px #50aadd',
-              }}
-            />
-            {is_biased ? 'Bias Detected' : 'Neutral Content'}
-          </div>
+                boxShadow: is_biased ? '0 0 10px #e06060' : '0 0 10px #50aadd',
+              }} />
+              <span style={{
+                fontFamily: "'Space Mono', monospace", fontSize: 13, letterSpacing: '2px',
+                color: is_biased ? '#f08888' : '#7acbf0',
+              }}>
+                {is_biased ? 'Bias Detected' : 'Neutral Content'}
+              </span>
+            </div>
+          </Card>
         </motion.div>
 
-        {/* ── Row 2: Bias Type — primary hero card ── */}
+        {/* ── BIAS TYPE — Hero card ── */}
         <motion.div variants={row}>
-          <div
-            className="rounded-2xl"
+          <Card
+            glowColor={accent}
             style={{
-              padding: '32px 40px',
-              background: `linear-gradient(135deg, rgba(20,12,42,0.88) 0%, rgba(14,20,50,0.82) 100%)`,
-              border: `1px solid ${accent}28`,
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              boxShadow: `0 0 80px ${accent}0e, inset 0 1px 0 rgba(255,255,255,0.055)`,
-              position: 'relative',
-              overflow: 'hidden',
+              padding: '40px 52px',
+              background: `linear-gradient(135deg, rgba(16,10,36,0.92) 0%, rgba(10,16,44,0.88) 100%)`,
+              border: `1px solid ${accent}30`,
+              boxShadow: `0 0 100px ${accent}0d, 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
             }}
           >
-            {/* Ambient corner glow */}
-            <div
-              className="absolute pointer-events-none"
-              style={{
-                top: -60, right: -60,
-                width: 200, height: 200,
-                background: `radial-gradient(circle, ${accent}18 0%, transparent 70%)`,
-              }}
-            />
+            {/* Corner glow */}
+            <div style={{
+              position: 'absolute', top: -80, right: -80, width: 260, height: 260, pointerEvents: 'none',
+              background: `radial-gradient(circle, ${accent}1a 0%, transparent 68%)`,
+            }} />
 
-            <p
-              className="font-mono mb-4"
-              style={{ fontSize: '10px', letterSpacing: '3.5px', color: 'rgba(140,150,185,0.55)', textTransform: 'uppercase' }}
-            >
-              Bias Type
-            </p>
+            <Label>Bias Type</Label>
 
-            <div className="flex items-center gap-5">
-              {/* Accent bar */}
-              <div
-                className="rounded-full shrink-0"
-                style={{
-                  width: 4,
-                  height: 52,
-                  background: is_biased
-                    ? `linear-gradient(to bottom, ${accentPurple}, ${accentCyan})`
-                    : `linear-gradient(to bottom, ${accentCyan}, #3AB8FF)`,
-                  boxShadow: `0 0 16px ${accent}55`,
-                }}
-              />
-              <span
-                className="font-mono leading-tight"
-                style={{
-                  fontSize: 'clamp(1.8rem, 3.8vw, 3rem)',
-                  color: is_biased ? '#d0a8ff' : '#80ecff',
-                  letterSpacing: '-0.5px',
-                  textShadow: `0 0 40px ${accent}44`,
-                }}
-              >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+              <div style={{
+                width: 5, flexShrink: 0,
+                height: 64,
+                borderRadius: 999,
+                background: `linear-gradient(to bottom, ${accent}, ${accent2})`,
+                boxShadow: `0 0 20px ${accent}66`,
+              }} />
+              <span style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: 'clamp(32px, 4.5vw, 56px)',
+                fontWeight: 400,
+                lineHeight: 1.1,
+                color: is_biased ? '#d4aaff' : '#86f0ff',
+                letterSpacing: '-1px',
+                textShadow: `0 0 60px ${accent}55`,
+              }}>
                 {label || '—'}
               </span>
             </div>
-          </div>
+          </Card>
         </motion.div>
 
-        {/* ── Row 3: Explanation — largest card, primary text ── */}
+        {/* ── EXPLANATION — Large body card ── */}
         <motion.div variants={row}>
-          <div
-            className="rounded-2xl"
-            style={{
-              padding: '28px 40px',
-              background: 'rgba(16,20,48,0.70)',
-              border: '1px solid rgba(110,125,200,0.13)',
-              backdropFilter: 'blur(18px)',
-              WebkitBackdropFilter: 'blur(18px)',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)',
-            }}
-          >
-            <p
-              className="font-mono mb-4"
-              style={{ fontSize: '10px', letterSpacing: '3.5px', color: 'rgba(140,150,185,0.5)', textTransform: 'uppercase' }}
-            >
-              Explanation
-            </p>
-            <p
-              className="font-sans leading-[1.95]"
-              style={{
-                fontSize: 'clamp(0.95rem, 1.5vw, 1.12rem)',
-                color: 'rgba(192,200,228,0.85)',
-                fontWeight: 300,
-              }}
-            >
+          <Card style={{
+            padding: '36px 52px',
+            background: 'rgba(13,17,44,0.78)',
+            border: '1px solid rgba(110,128,205,0.15)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 70px rgba(0,0,0,0.4)',
+          }}>
+            <Label>Explanation</Label>
+            <p style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: 'clamp(16px, 1.5vw, 20px)',
+              fontWeight: 300,
+              lineHeight: 1.95,
+              color: 'rgba(198,208,238,0.88)',
+            }}>
               {explanation || 'No explanation available.'}
             </p>
-          </div>
+          </Card>
         </motion.div>
 
-        {/* ── Row 4: Confidence — secondary card ── */}
+        {/* ── CONFIDENCE — Secondary card ── */}
         <motion.div variants={row}>
-          <div
-            className="rounded-2xl"
-            style={{
-              padding: '24px 40px',
-              background: 'rgba(14,18,44,0.65)',
-              border: '1px solid rgba(100,115,190,0.12)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.035)',
-            }}
-          >
-            <p
-              className="font-mono mb-4"
-              style={{ fontSize: '10px', letterSpacing: '3.5px', color: 'rgba(140,150,185,0.45)', textTransform: 'uppercase' }}
-            >
-              Confidence
-            </p>
-            <div className="flex items-center gap-6">
-              <span
-                className="font-mono shrink-0"
-                style={{
-                  fontSize: 'clamp(1.5rem, 2.8vw, 2rem)',
-                  color: 'rgba(215,222,242,0.88)',
-                  letterSpacing: '-0.5px',
-                  minWidth: '6rem',
-                }}
-              >
+          <Card style={{
+            padding: '32px 52px',
+            background: 'rgba(11,15,40,0.72)',
+            border: '1px solid rgba(100,118,198,0.12)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.035), 0 24px 60px rgba(0,0,0,0.38)',
+          }}>
+            <Label>Confidence Score</Label>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+              <span style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: 'clamp(28px, 3.5vw, 48px)',
+                fontWeight: 400,
+                letterSpacing: '-1px',
+                color: 'rgba(218,226,248,0.9)',
+                minWidth: 120,
+                flexShrink: 0,
+              }}>
                 {confidence || '—'}
               </span>
-              <div className="flex-1">
+              <div style={{ flex: 1 }}>
                 <ConfidenceBar value={confNum} accent={accent} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'rgba(110,125,170,0.4)', letterSpacing: '1px' }}>0%</span>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'rgba(110,125,170,0.4)', letterSpacing: '1px' }}>50%</span>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'rgba(110,125,170,0.4)', letterSpacing: '1px' }}>100%</span>
+                </div>
               </div>
             </div>
-          </div>
+          </Card>
         </motion.div>
 
         {/* ── Back button ── */}
-        <motion.div variants={row} className="flex justify-center pt-2 pb-2">
+        <motion.div variants={row} style={{ display: 'flex', justifyContent: 'center', paddingTop: 8, paddingBottom: 8 }}>
           <motion.button
             onClick={onBack}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="font-mono uppercase rounded-full"
             style={{
-              fontSize: '0.7rem',
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 11,
               letterSpacing: '3px',
-              padding: '14px 38px',
-              color: 'rgba(155,165,200,0.55)',
-              border: '1px solid rgba(130,140,185,0.16)',
+              textTransform: 'uppercase',
+              color: 'rgba(150,162,205,0.5)',
+              padding: '15px 42px',
+              borderRadius: 999,
+              border: '1px solid rgba(130,145,190,0.15)',
               background: 'transparent',
               backdropFilter: 'blur(8px)',
               cursor: 'pointer',
               transition: 'all 0.25s ease',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(178,102,255,0.38)'
+              e.currentTarget.style.borderColor = 'rgba(178,102,255,0.4)'
               e.currentTarget.style.color = 'rgba(178,102,255,0.8)'
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(130,140,185,0.16)'
-              e.currentTarget.style.color = 'rgba(155,165,200,0.55)'
+              e.currentTarget.style.borderColor = 'rgba(130,145,190,0.15)'
+              e.currentTarget.style.color = 'rgba(150,162,205,0.5)'
             }}
           >
             ← New Analysis
