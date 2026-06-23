@@ -91,11 +91,7 @@ The goal of this frontend is to provide an easy testing environment so team memb
 
 ---
 
-## Setup Instructions
-
-### 1. Install Requirements
-
-## How to Run the Project
+## Setup Instructions to run project locally 
 
 ### Step 1: Clone the Repository
 
@@ -103,8 +99,6 @@ The goal of this frontend is to provide an easy testing environment so team memb
 git clone <repository-link>
 cd Bias-detector
 ```
-
----
 
 ### Step 2: Install Dependencies
 
