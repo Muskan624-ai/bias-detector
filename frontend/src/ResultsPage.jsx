@@ -229,23 +229,15 @@ export default function ResultsPage({ result, onBack }) {
               letterSpacing: '3px',
               textTransform: 'uppercase',
               color: '#d4aaff',
-
               padding: '20px 60px',
-
               borderRadius: 999,
-
               border: '1px solid rgba(178,102,255,0.45)',
-
               background: 'linear-gradient(135deg, rgba(178,102,255,0.12), rgba(88,230,255,0.08))',
-
               backdropFilter: 'blur(12px)',
-
               boxShadow: '0 0 35px rgba(178,102,255,0.18)',
-
               cursor: 'pointer',
-
               transition: 'all 0.25s ease',
-          }}
+        
             }}
             onMouseEnter={e => {
               e.currentTarget.style.borderColor = 'rgba(178,102,255,0.4)'
