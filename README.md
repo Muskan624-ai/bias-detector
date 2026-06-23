@@ -14,14 +14,6 @@ https://uclanlp.github.io/corefBias/overview?utm_source=chatgpt.com
 # Model Weights  
 Can be downloaded from here: https://drive.google.com/drive/u/0/folders/1zY3jNMk23CEe2QrCC5LXmGA1AhMu5zIg
 
-# Installation
-To run this project locally, install the dependencies:
-
-```bash
-pip install -r requirements.txt
-
-```
-
 # Backend Progress (Latest Work)
 
 - Backend repository structure finalized and cleaned
