@@ -95,10 +95,6 @@ The goal of this frontend is to provide an easy testing environment so team memb
 
 ### 1. Install Requirements
 
-```bash
-pip install -r requirements.txt
-
-
 ## How to Run the Project
 
 ### Step 1: Clone the Repository
@@ -112,7 +108,7 @@ cd Bias-detector
 
 ### Step 2: Install Dependencies
 
-Create Virtual Environement
+Create Virtual Environment
 ```bash
 .venv\Scripts\activate
 ```
