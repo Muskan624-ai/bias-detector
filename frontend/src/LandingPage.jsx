@@ -28,9 +28,9 @@ export default function LandingPage({ onStart }) {
       exit="exit"
     >
       {/* Eyebrow */}
-      <motion.div variants={up} className="flex items-center gap-4 mb-10">
+     <motion.div variants={up} className="flex items-center gap-4 mb-24">
         <span style={{ width: 56, height: 1, background: 'linear-gradient(to right, transparent, rgba(178,102,255,0.6))' }} />
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: '5px', color: 'rgba(178,102,255,0.6)', textTransform: 'uppercase' }}>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 14, letterSpacing: '5px', color: 'rgba(178,102,255,0.6)', textTransform: 'uppercase' }}>
           AI · Language Analysis
         </span>
         <span style={{ width: 56, height: 1, background: 'linear-gradient(to left, transparent, rgba(88,230,255,0.6))' }} />
@@ -55,6 +55,7 @@ export default function LandingPage({ onStart }) {
             letterSpacing: '-3px',
             color: '#e2e6f5',
             position: 'relative',
+            textShadow:'0 0 30px rgba(178,102,255,0.35), 0 0 80px rgba(88,230,255,0.18)',
           }}
         >
           Bias&#8209;Detector
@@ -73,7 +74,7 @@ export default function LandingPage({ onStart }) {
         style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          fontSize: 'clamp(16px, 1.7vw, 20px)',
+          fontSize: 'clamp(20px, 2vw, 28px)',
           lineHeight: 1.85,
           color: 'rgba(175,185,220,0.72)',
           textAlign: 'center',
@@ -96,9 +97,9 @@ export default function LandingPage({ onStart }) {
             transition={{ duration: 0.7, delay: p.delay, ease: [0.22,1,0.36,1] }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 11,
-              letterSpacing: '2px',
-              padding: '10px 22px',
+              fontSize: 22,
+              letterSpacing: '3px',
+              padding: 18px 32px,
               borderRadius: 999,
               background: p.bg,
               border: `1px solid ${p.border}`,
@@ -115,7 +116,10 @@ export default function LandingPage({ onStart }) {
       </motion.div>
 
       {/* CTA */}
-      <motion.div variants={up}>
+      <motion.div
+        variants={up}
+        style={{ marginTop: 30 }}
+      >
         <CTAButton onClick={onStart}>Start Analysis</CTAButton>
       </motion.div>
 
@@ -126,7 +130,7 @@ export default function LandingPage({ onStart }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.3, y: [0, 8, 0] }}
         transition={{ opacity: { duration: 0.6, delay: 1.4 }, y: { duration: 2.6, repeat: Infinity, ease: 'easeInOut' } }}
-        style={{ marginTop: 56, background: 'none', border: 'none', cursor: 'pointer', color: '#6070a0', padding: 0 }}
+        style={{ marginTop: 90, background: 'none', border: 'none', cursor: 'pointer', color: '#6070a0', padding: 0 }}
         onMouseEnter={e => (e.currentTarget.style.opacity = '0.65')}
         onMouseLeave={e => (e.currentTarget.style.opacity = '0.3')}
       >
@@ -151,11 +155,11 @@ export function CTAButton({ onClick, children, disabled = false, loading = false
       whileTap={!disabled ? { scale: 0.96 } : {}}
       style={{
         fontFamily: "'Space Mono', monospace",
-        fontSize: 13,
+        fontSize: 24,
         letterSpacing: '3px',
         textTransform: 'uppercase',
         color: disabled ? 'rgba(140,150,180,0.4)' : '#fff',
-        padding: '20px 68px',
+        padding: '24px 88px',
         borderRadius: 999,
         background: disabled
           ? 'rgba(60,65,90,0.1)'
