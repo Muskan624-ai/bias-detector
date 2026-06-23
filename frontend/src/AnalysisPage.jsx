@@ -68,16 +68,16 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
       {/* Textarea card */}
       <motion.div
         variants={childVariants}
-        className="w-full max-w-[950px]"
+        className="w-full max-w-[1100px]"
       >
         <div
           className="relative rounded-[20px] overflow-hidden"
           style={{
-            background: 'rgba(20, 25, 55, 0.45)',
+            background: 'rgba(20, 25, 55, 0.65)',
             border: error
               ? '1px solid rgba(220,80,80,0.4)'
               : '1px solid rgba(155, 110, 220, 0.20)',
-            backdropFilter: 'blur(22px)',
+            backdropFilter: 'blur(28px)',
             transition: 'border-color 0.3s',
           }}
         >
@@ -87,7 +87,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
             onChange={(e) => { setText(e.target.value); onClearError?.() }}
             onKeyDown={handleKeyDown}
             placeholder="Paste any article, job description, or statement to detect bias."
-            className="w-full h-[360px] bg-transparent px-6 py-5 text-[0.95rem] text-slate-300 leading-relaxed font-sans focus:outline-none"
+            className="w-full h-[450px] bg-transparent px-8 py-7 text-[1.05rem] text-slate-200 leading-relaxed font-sans focus:outline-none"
             style={{ caretColor: '#a07aff' }}
             disabled={loading}
           />
