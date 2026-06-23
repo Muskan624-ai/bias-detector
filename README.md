@@ -29,13 +29,13 @@ pip install -r requirements.txt
 - FastAPI backend fully connected with transformer-based NLP model
 - Integrated SHAP-based explainability for prediction reasoning
 - Migrated from binary classification to multiclass bias detection
-- 
+  
 - Added support for:
   - Neutral
   - Political Bias
   - Gender Bias
   - Racial Bias
-  - 
+    
 - Backend API tested successfully using FastAPI Swagger docs
 
 - Backend now returns:
