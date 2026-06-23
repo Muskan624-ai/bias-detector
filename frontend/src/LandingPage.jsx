@@ -1,179 +1,197 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+
+const PILLS = [
+  { label: 'Political Bias',  col: '#a78bfa', bg: 'rgba(139,92,246,0.13)',  border: 'rgba(139,92,246,0.3)',  delay: 0.7,  floatDur: 3.8 },
+  { label: 'Gender Bias',     col: '#67e8f9', bg: 'rgba(34,211,238,0.11)',  border: 'rgba(34,211,238,0.28)', delay: 0.85, floatDur: 4.4 },
+  { label: 'Racial Bias',     col: '#c4b5fd', bg: 'rgba(167,139,250,0.11)', border: 'rgba(167,139,250,0.26)',delay: 1.0,  floatDur: 3.2 },
+]
 
 const container = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.18, delayChildren: 0.1 },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.97,
-    transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.05 } },
+  exit: { opacity: 0, scale: 0.97, transition: { duration: 0.4, ease: [0.4,0,0.2,1] } },
 }
-
 const up = {
-  hidden: { opacity: 0, y: 36 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 44 },
+  show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.22,1,0.36,1] } },
 }
-
-const PILLS = [
-  { label: 'Political Bias',  color: '#a78bfa', bg: 'rgba(139,92,246,0.12)',  border: 'rgba(139,92,246,0.28)',  delay: 0.6 },
-  { label: 'Gender Bias',     color: '#67e8f9', bg: 'rgba(34,211,238,0.10)',  border: 'rgba(34,211,238,0.26)',  delay: 0.75 },
-  { label: 'Racial Bias',     color: '#c4b5fd', bg: 'rgba(167,139,250,0.10)', border: 'rgba(167,139,250,0.24)', delay: 0.9 },
-]
 
 export default function LandingPage({ onStart }) {
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center px-8"
+      className="absolute inset-0 flex flex-col items-center justify-center"
+      style={{ padding: '0 5vw' }}
       variants={container}
       initial="hidden"
       animate="show"
       exit="exit"
     >
       {/* Eyebrow */}
-      <motion.div variants={up} className="flex items-center gap-3 mb-8">
-        <span className="block h-px w-10" style={{ background: 'linear-gradient(to right, transparent, rgba(178,102,255,0.5))' }} />
-        <span className="font-mono text-[10px] tracking-[5px] uppercase select-none"
-          style={{ color: 'rgba(178,102,255,0.55)' }}>
+      <motion.div variants={up} className="flex items-center gap-4 mb-10">
+        <span style={{ width: 56, height: 1, background: 'linear-gradient(to right, transparent, rgba(178,102,255,0.6))' }} />
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: '5px', color: 'rgba(178,102,255,0.6)', textTransform: 'uppercase' }}>
           AI · Language Analysis
         </span>
-        <span className="block h-px w-10" style={{ background: 'linear-gradient(to left, transparent, rgba(88,230,255,0.5))' }} />
+        <span style={{ width: 56, height: 1, background: 'linear-gradient(to left, transparent, rgba(88,230,255,0.6))' }} />
       </motion.div>
 
-      {/* ── Hero title with ambient glow behind it ── */}
-      <motion.div variants={up} className="relative flex items-center justify-center mb-6 select-none">
-        {/* Radial glow blob sitting behind the title */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            width: '140%',
-            height: '260%',
-            top: '50%', left: '50%',
-            transform: 'translate(-50%, -50%)',
-            background: 'radial-gradient(ellipse at center, rgba(178,102,255,0.18) 0%, rgba(88,230,255,0.06) 45%, transparent 70%)',
-            filter: 'blur(2px)',
-          }}
-        />
+      {/* HERO TITLE */}
+      <motion.div variants={up} style={{ position: 'relative', textAlign: 'center', marginBottom: 36 }}>
+        {/* Deep glow behind title */}
+        <div style={{
+          position: 'absolute', inset: '-40% -20%',
+          background: 'radial-gradient(ellipse at 50% 55%, rgba(178,102,255,0.22) 0%, rgba(88,230,255,0.08) 40%, transparent 70%)',
+          filter: 'blur(4px)',
+          pointerEvents: 'none',
+        }} />
         <h1
-          className="relative font-mono font-normal text-center leading-none title-glow"
+          className="title-pulse"
           style={{
-            fontSize: 'clamp(4.5rem, 11vw, 10rem)',
-            color: '#dde1f0',
+            fontFamily: "'Space Mono', monospace",
+            fontWeight: 400,
+            fontSize: 'clamp(68px, 9.5vw, 128px)',
+            lineHeight: 1,
             letterSpacing: '-3px',
+            color: '#e2e6f5',
+            position: 'relative',
           }}
         >
           Bias&#8209;Detector
         </h1>
       </motion.div>
 
-      {/* Thin divider */}
+      {/* Thin vertical line */}
       <motion.div
         variants={up}
-        className="mb-8"
-        style={{
-          width: 1,
-          height: 48,
-          background: 'linear-gradient(to bottom, rgba(178,102,255,0.55), rgba(88,230,255,0.18), transparent)',
-        }}
+        style={{ width: 1, height: 52, marginBottom: 32, background: 'linear-gradient(to bottom, rgba(178,102,255,0.6), rgba(88,230,255,0.2), transparent)' }}
       />
 
       {/* Subtitle */}
       <motion.p
         variants={up}
-        className="font-sans text-center mb-10 font-light"
         style={{
-          maxWidth: 520,
-          fontSize: 'clamp(1rem, 1.8vw, 1.18rem)',
-          color: 'rgba(170,178,210,0.72)',
-          letterSpacing: '0.015em',
-          lineHeight: 1.9,
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: 300,
+          fontSize: 'clamp(16px, 1.7vw, 20px)',
+          lineHeight: 1.85,
+          color: 'rgba(175,185,220,0.72)',
+          textAlign: 'center',
+          maxWidth: 540,
+          marginBottom: 44,
+          letterSpacing: '0.01em',
         }}
       >
         Detect political, gender, and racial bias in articles,
-        statements, or job descriptions — powered by machine learning.
+        statements, and job descriptions — powered by machine learning.
       </motion.p>
 
-      {/* Bias category pills */}
-      <motion.div
-        variants={up}
-        className="flex items-center gap-3 mb-12 flex-wrap justify-center"
-      >
-        {PILLS.map((pill) => (
+      {/* Floating bias pills */}
+      <motion.div variants={up} style={{ display: 'flex', gap: 14, marginBottom: 52, flexWrap: 'wrap', justifyContent: 'center' }}>
+        {PILLS.map((p) => (
           <motion.span
-            key={pill.label}
-            initial={{ opacity: 0, scale: 0.88, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: pill.delay, ease: [0.22, 1, 0.36, 1] }}
-            className="font-mono select-none"
+            key={p.label}
+            initial={{ opacity: 0, y: 16, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: p.delay, ease: [0.22,1,0.36,1] }}
             style={{
-              fontSize: '0.72rem',
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 11,
               letterSpacing: '2px',
-              padding: '8px 18px',
+              padding: '10px 22px',
               borderRadius: 999,
-              background: pill.bg,
-              border: `1px solid ${pill.border}`,
-              color: pill.color,
+              background: p.bg,
+              border: `1px solid ${p.border}`,
+              color: p.col,
+              userSelect: 'none',
+              animation: `pillFloat ${p.floatDur}s ease-in-out infinite`,
+              animationDelay: `${p.delay * 0.5}s`,
+              boxShadow: `0 0 20px ${p.col}22`,
             }}
           >
-            {pill.label}
+            {p.label}
           </motion.span>
         ))}
       </motion.div>
 
       {/* CTA */}
       <motion.div variants={up}>
-        <motion.button
-          onClick={onStart}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative font-mono uppercase text-white rounded-full"
-          style={{
-            fontSize: '0.82rem',
-            letterSpacing: '3px',
-            padding: '20px 64px',
-            background: 'linear-gradient(135deg, rgba(178,102,255,0.22) 0%, rgba(88,230,255,0.12) 100%)',
-            border: '1px solid rgba(178,102,255,0.48)',
-            backdropFilter: 'blur(14px)',
-            boxShadow: '0 0 48px rgba(178,102,255,0.18), 0 0 80px rgba(88,230,255,0.06), inset 0 1px 0 rgba(255,255,255,0.07)',
-            transition: 'border-color 0.3s, box-shadow 0.3s',
-            cursor: 'pointer',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.borderColor = 'rgba(178,102,255,0.75)'
-            e.currentTarget.style.boxShadow = '0 0 72px rgba(178,102,255,0.35), 0 0 120px rgba(88,230,255,0.12), inset 0 1px 0 rgba(255,255,255,0.1)'
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.borderColor = 'rgba(178,102,255,0.48)'
-            e.currentTarget.style.boxShadow = '0 0 48px rgba(178,102,255,0.18), 0 0 80px rgba(88,230,255,0.06), inset 0 1px 0 rgba(255,255,255,0.07)'
-          }}
-        >
-          Start Analysis
-        </motion.button>
+        <CTAButton onClick={onStart}>Start Analysis</CTAButton>
       </motion.div>
 
-      {/* Bobbing chevron */}
+      {/* Chevron */}
       <motion.button
-        variants={up}
         onClick={onStart}
         aria-label="Begin"
-        className="flex flex-col items-center gap-0 mt-14"
-        style={{ opacity: 0.28, cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}
-        animate={{ y: [0, 7, 0] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-        onMouseEnter={e => (e.currentTarget.style.opacity = '0.55')}
-        onMouseLeave={e => (e.currentTarget.style.opacity = '0.28')}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.3, y: [0, 8, 0] }}
+        transition={{ opacity: { duration: 0.6, delay: 1.4 }, y: { duration: 2.6, repeat: Infinity, ease: 'easeInOut' } }}
+        style={{ marginTop: 56, background: 'none', border: 'none', cursor: 'pointer', color: '#6070a0', padding: 0 }}
+        onMouseEnter={e => (e.currentTarget.style.opacity = '0.65')}
+        onMouseLeave={e => (e.currentTarget.style.opacity = '0.3')}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3">
           <path d="M6 9l6 6 6-6" />
         </svg>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ marginTop: -12 }}>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" style={{ marginTop: -13, display: 'block' }}>
           <path d="M6 9l6 6 6-6" />
         </svg>
       </motion.button>
     </motion.div>
+  )
+}
+
+// ── Shared premium CTA button ────────────────────────────────────────────────
+export function CTAButton({ onClick, children, disabled = false, loading = false }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      disabled={disabled}
+      whileHover={!disabled ? { scale: 1.04 } : {}}
+      whileTap={!disabled ? { scale: 0.96 } : {}}
+      style={{
+        fontFamily: "'Space Mono', monospace",
+        fontSize: 13,
+        letterSpacing: '3px',
+        textTransform: 'uppercase',
+        color: disabled ? 'rgba(140,150,180,0.4)' : '#fff',
+        padding: '20px 68px',
+        borderRadius: 999,
+        background: disabled
+          ? 'rgba(60,65,90,0.1)'
+          : 'linear-gradient(135deg, rgba(178,102,255,0.2) 0%, rgba(88,230,255,0.1) 100%)',
+        border: disabled ? '1px solid rgba(100,110,140,0.18)' : '1px solid rgba(178,102,255,0.5)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        boxShadow: disabled ? 'none' : '0 0 50px rgba(178,102,255,0.2), inset 0 1px 0 rgba(255,255,255,0.07)',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.38 : 1,
+        transition: 'border-color 0.28s, box-shadow 0.28s',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+      }}
+      onMouseEnter={e => {
+        if (disabled) return
+        e.currentTarget.style.borderColor = 'rgba(178,102,255,0.8)'
+        e.currentTarget.style.boxShadow = '0 0 80px rgba(178,102,255,0.38), 0 0 130px rgba(88,230,255,0.12), inset 0 1px 0 rgba(255,255,255,0.1)'
+      }}
+      onMouseLeave={e => {
+        if (disabled) return
+        e.currentTarget.style.borderColor = 'rgba(178,102,255,0.5)'
+        e.currentTarget.style.boxShadow = '0 0 50px rgba(178,102,255,0.2), inset 0 1px 0 rgba(255,255,255,0.07)'
+      }}
+    >
+      {loading && <SmallSpinner />}
+      {children}
+    </motion.button>
+  )
+}
+
+function SmallSpinner() {
+  return (
+    <svg className="spin-fast" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+    </svg>
   )
 }
