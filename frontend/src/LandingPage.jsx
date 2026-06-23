@@ -35,6 +35,8 @@ export default function LandingPage({ onStart }) {
       >
         AI · Language Analysis
       </motion.p>
+      <div className="absolute w-[600px] h-[600px] rounded-full
+        bg-violet-500/10 blur-[180px]" />
 
       {/* Title */}
       <motion.h1
