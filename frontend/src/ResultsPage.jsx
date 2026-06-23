@@ -1,143 +1,257 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import ConfidenceBar from './ConfidenceBar'
-import BiasBadge from './BiasBadge'
 
 const pageVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.4, 0, 0.2, 1],
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.11, delayChildren: 0.06 },
   },
   exit: {
     opacity: 0,
-    y: -20,
-    transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+    y: -16,
+    transition: { duration: 0.38, ease: [0.4, 0, 0.2, 1] },
   },
 }
 
-const rowVariants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } },
+const row = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.58, ease: [0.22, 1, 0.36, 1] } },
 }
 
 export default function ResultsPage({ result, onBack }) {
   const { is_biased, confidence, label, explanation } = result
-
-  // Parse numeric confidence value (e.g. "96.45%" → 96.45)
   const confNum = parseFloat(confidence) || 0
+
+  const accentPurple = '#B266FF'
+  const accentCyan   = '#58E6FF'
+  const accent       = is_biased ? accentPurple : accentCyan
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center px-6 py-8"
+      className="absolute inset-0 flex flex-col items-center justify-start results-scroll"
+      style={{ overflowY: 'auto', padding: '28px 24px 40px' }}
       variants={pageVariants}
       initial="hidden"
       animate="show"
       exit="exit"
     >
-      {/* Title */}
+      {/* Page title */}
       <motion.h1
-        variants={rowVariants}
-        className="font-mono text-[clamp(1.4rem,3vw,2rem)] text-slate-400 tracking-tight text-center mb-6"
+        variants={row}
+        className="font-mono text-center tracking-tight mb-7 shrink-0 select-none"
+        style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)', color: 'rgba(200,210,230,0.5)' }}
       >
         Bias&#8209;Detector
       </motion.h1>
 
-      {/* Results panel */}
-      <div className="w-full max-w-[900px] flex flex-col gap-5 results-scroll">
+      {/* ── Main panel ── */}
+      <div className="w-full flex flex-col gap-4 shrink-0" style={{ maxWidth: 'min(900px, 93vw)' }}>
 
-        {/* Analysis Complete badge */}
-        <motion.div variants={rowVariants}>
-          <StatusBadge variant="complete" label="Analysis Complete" />
+        {/* ── Row 1: status strip (two pills side-by-side) ── */}
+        <motion.div variants={row} className="grid grid-cols-2 gap-3">
+          {/* Analysis Complete */}
+          <div
+            className="flex items-center justify-center gap-2.5 rounded-2xl font-mono tracking-widest"
+            style={{
+              padding: '16px 20px',
+              fontSize: '0.8rem',
+              background: 'rgba(50,140,80,0.13)',
+              border: '1px solid rgba(60,160,90,0.3)',
+              color: '#6dcea0',
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{ background: '#4caf77', boxShadow: '0 0 8px #4caf77' }}
+            />
+            Analysis Complete
+          </div>
+
+          {/* Bias / Neutral badge */}
+          <div
+            className="flex items-center justify-center gap-2.5 rounded-2xl font-mono tracking-widest"
+            style={{
+              padding: '16px 20px',
+              fontSize: '0.8rem',
+              background: is_biased ? 'rgba(170,50,50,0.15)' : 'rgba(40,120,190,0.13)',
+              border: is_biased ? '1px solid rgba(200,60,60,0.32)' : '1px solid rgba(60,150,220,0.28)',
+              color: is_biased ? '#f08888' : '#7acbf0',
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{
+                background: is_biased ? '#e06060' : '#50aadd',
+                boxShadow: is_biased ? '0 0 8px #e06060' : '0 0 8px #50aadd',
+              }}
+            />
+            {is_biased ? 'Bias Detected' : 'Neutral Content'}
+          </div>
         </motion.div>
 
-        {/* Bias detected / Neutral */}
-        <motion.div variants={rowVariants}>
-          <BiasBadge isBiased={is_biased} />
-        </motion.div>
+        {/* ── Row 2: Bias Type — primary hero card ── */}
+        <motion.div variants={row}>
+          <div
+            className="rounded-2xl"
+            style={{
+              padding: '32px 40px',
+              background: `linear-gradient(135deg, rgba(20,12,42,0.88) 0%, rgba(14,20,50,0.82) 100%)`,
+              border: `1px solid ${accent}28`,
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              boxShadow: `0 0 80px ${accent}0e, inset 0 1px 0 rgba(255,255,255,0.055)`,
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Ambient corner glow */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                top: -60, right: -60,
+                width: 200, height: 200,
+                background: `radial-gradient(circle, ${accent}18 0%, transparent 70%)`,
+              }}
+            />
 
-        {/* Bias Type */}
-        <motion.div variants={rowVariants}>
-          <ResultCard label="Bias Type">
-            <span className="font-mono text-[2rem] font-semibold text-indigo-200 leading-tight">
-              {label || '—'}
-            </span>
-          </ResultCard>
-        </motion.div>
+            <p
+              className="font-mono mb-4"
+              style={{ fontSize: '10px', letterSpacing: '3.5px', color: 'rgba(140,150,185,0.55)', textTransform: 'uppercase' }}
+            >
+              Bias Type
+            </p>
 
-        {/* Confidence */}
-        <motion.div variants={rowVariants}>
-          <ResultCard label="Confidence">
-            <div className="flex items-center gap-4 mt-1">
-              <span className="font-mono text-2xl font-semibold text-cyan-200 w-24 shrink-0">
-                {confidence || '—'}
+            <div className="flex items-center gap-5">
+              {/* Accent bar */}
+              <div
+                className="rounded-full shrink-0"
+                style={{
+                  width: 4,
+                  height: 52,
+                  background: is_biased
+                    ? `linear-gradient(to bottom, ${accentPurple}, ${accentCyan})`
+                    : `linear-gradient(to bottom, ${accentCyan}, #3AB8FF)`,
+                  boxShadow: `0 0 16px ${accent}55`,
+                }}
+              />
+              <span
+                className="font-mono leading-tight"
+                style={{
+                  fontSize: 'clamp(1.8rem, 3.8vw, 3rem)',
+                  color: is_biased ? '#d0a8ff' : '#80ecff',
+                  letterSpacing: '-0.5px',
+                  textShadow: `0 0 40px ${accent}44`,
+                }}
+              >
+                {label || '—'}
               </span>
-              <ConfidenceBar value={confNum} />
             </div>
-          </ResultCard>
+          </div>
         </motion.div>
 
-        {/* Explanation */}
-        <motion.div variants={rowVariants}>
-          <ResultCard label="Explanation">
-            <p className="text-[1.05rem] text-slate-300 leading-8 font-sans">
+        {/* ── Row 3: Explanation — largest card, primary text ── */}
+        <motion.div variants={row}>
+          <div
+            className="rounded-2xl"
+            style={{
+              padding: '28px 40px',
+              background: 'rgba(16,20,48,0.70)',
+              border: '1px solid rgba(110,125,200,0.13)',
+              backdropFilter: 'blur(18px)',
+              WebkitBackdropFilter: 'blur(18px)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)',
+            }}
+          >
+            <p
+              className="font-mono mb-4"
+              style={{ fontSize: '10px', letterSpacing: '3.5px', color: 'rgba(140,150,185,0.5)', textTransform: 'uppercase' }}
+            >
+              Explanation
+            </p>
+            <p
+              className="font-sans leading-[1.95]"
+              style={{
+                fontSize: 'clamp(0.95rem, 1.5vw, 1.12rem)',
+                color: 'rgba(192,200,228,0.85)',
+                fontWeight: 300,
+              }}
+            >
               {explanation || 'No explanation available.'}
             </p>
-          </ResultCard>
+          </div>
+        </motion.div>
+
+        {/* ── Row 4: Confidence — secondary card ── */}
+        <motion.div variants={row}>
+          <div
+            className="rounded-2xl"
+            style={{
+              padding: '24px 40px',
+              background: 'rgba(14,18,44,0.65)',
+              border: '1px solid rgba(100,115,190,0.12)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.035)',
+            }}
+          >
+            <p
+              className="font-mono mb-4"
+              style={{ fontSize: '10px', letterSpacing: '3.5px', color: 'rgba(140,150,185,0.45)', textTransform: 'uppercase' }}
+            >
+              Confidence
+            </p>
+            <div className="flex items-center gap-6">
+              <span
+                className="font-mono shrink-0"
+                style={{
+                  fontSize: 'clamp(1.5rem, 2.8vw, 2rem)',
+                  color: 'rgba(215,222,242,0.88)',
+                  letterSpacing: '-0.5px',
+                  minWidth: '6rem',
+                }}
+              >
+                {confidence || '—'}
+              </span>
+              <div className="flex-1">
+                <ConfidenceBar value={confNum} accent={accent} />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Back button ── */}
+        <motion.div variants={row} className="flex justify-center pt-2 pb-2">
+          <motion.button
+            onClick={onBack}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            className="font-mono uppercase rounded-full"
+            style={{
+              fontSize: '0.7rem',
+              letterSpacing: '3px',
+              padding: '14px 38px',
+              color: 'rgba(155,165,200,0.55)',
+              border: '1px solid rgba(130,140,185,0.16)',
+              background: 'transparent',
+              backdropFilter: 'blur(8px)',
+              cursor: 'pointer',
+              transition: 'all 0.25s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(178,102,255,0.38)'
+              e.currentTarget.style.color = 'rgba(178,102,255,0.8)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(130,140,185,0.16)'
+              e.currentTarget.style.color = 'rgba(155,165,200,0.55)'
+            }}
+          >
+            ← New Analysis
+          </motion.button>
         </motion.div>
       </div>
-
-      {/* Back button */}
-      <motion.div variants={rowVariants} className="mt-5">
-        <button
-          onClick={onBack}
-          className="font-mono text-xs tracking-widest text-slate-500 px-7 py-3 rounded-full border border-slate-700/50 bg-transparent hover:border-slate-600 hover:text-slate-400 transition-all duration-300 active:scale-95"
-        >
-          ← New Analysis
-        </button>
-      </motion.div>
     </motion.div>
-  )
-}
-
-// Generic result card container
-function ResultCard({ label, children }) {
-  return (
-    <div
-      className="rounded-3xl px-8 py-6"
-      style={{
-        background: 'rgba(20, 28, 60, 0.65)',
-        border: '1px solid rgba(100, 120, 200, 0.14)',
-        backdropFilter: 'blur(28px)',
-        boxShadow: '0 0 60px rgba(120,100,255,0.12)',
-      }}
-    >
-      <p className="text-xs tracking-[3px] uppercase text-slate-500 font-mono mb-3">
-        {label}
-      </p>
-      {children}
-    </div>
-  )
-}
-
-// Status badge pill
-function StatusBadge({ label }) {
-  return (
-    <div
-      className="w-full py-3 px-5 rounded-full text-center font-mono text-sm tracking-widest"
-      style={{
-        background: 'rgba(70, 160, 100, 0.18)',
-        border: '1px solid rgba(70, 160, 100, 0.35)',
-        color: '#7dd4a0',
-      }}
-    >
-      {label}
-    </div>
   )
 }
