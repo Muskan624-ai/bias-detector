@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import LobeCanvas from './components/LobeCanvas'
-import LandingPage from './components/LandingPage'
-import AnalysisPage from './components/AnalysisPage'
-import ResultsPage from './components/ResultsPage'
+import LobeCanvas from "./LobeCanvas";
+import LandingPage from "./LandingPage";
+import AnalysisPage from "./AnalysisPage";
+import ResultsPage from "./ResultsPage";
 import { analyzeText } from './api/biasApi'
 
 export default function App() {
