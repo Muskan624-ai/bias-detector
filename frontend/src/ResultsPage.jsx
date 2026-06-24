@@ -88,7 +88,8 @@ export default function ResultsPage({ result, onBack }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "32px 5vw 48px",
+        justifyContent: "center",
+        padding: "120px 5vw 48px",
         overflowY: "auto",
       }}
       variants={pv}
@@ -99,7 +100,7 @@ export default function ResultsPage({ result, onBack }) {
       {/* Page header */}
       <motion.div
         variants={row}
-        style={{ textAlign: "center", marginBottom: 36 }}
+        style={{ textAlign: "center", marginBottom: 70 }}
       >
         <h1
           style={{
@@ -129,7 +130,7 @@ export default function ResultsPage({ result, onBack }) {
       <div
         style={{
           width: "100%",
-          maxWidth: "min(1400px, 96vw)",
+          maxWidth: "min(1200px, 85vw)",
           display: "flex",
           flexDirection: "column",
           gap: 24,
@@ -145,7 +146,7 @@ export default function ResultsPage({ result, onBack }) {
             style={{
               background: "rgba(40,120,70,0.12)",
               border: "1px solid rgba(55,160,85,0.28)",
-              padding: "18px 28px",
+              padding: "28px 40px",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -180,14 +181,14 @@ export default function ResultsPage({ result, onBack }) {
               border: is_biased
                 ? "1px solid rgba(200,55,55,0.3)"
                 : "1px solid rgba(55,140,210,0.28)",
-              padding: "18px 28px",
+              padding: "28px 40px",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span
                 style={{
-                  width: 9,
-                  height: 9,
+                  width: 14,
+                  height: 14,
                   borderRadius: "50%",
                   flexShrink: 0,
                   background: is_biased ? "#e06060" : "#50aadd",
@@ -199,7 +200,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: 13,
+                  fontSize: 18,
                   letterSpacing: "2px",
                   color: is_biased ? "#f08888" : "#7acbf0",
                 }}
@@ -215,7 +216,7 @@ export default function ResultsPage({ result, onBack }) {
           <Card
             glowColor={accent}
             style={{
-              padding: "60px 72px",
+              padding: "80px 72px",
               background: `linear-gradient(135deg, rgba(16,10,36,0.92) 0%, rgba(10,16,44,0.88) 100%)`,
               border: `1px solid ${accent}30`,
               boxShadow: `0 0 100px ${accent}0d, 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
@@ -367,8 +368,8 @@ export default function ResultsPage({ result, onBack }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            paddingTop: 40,
-            paddingBottom: 30,
+            paddingTop: 100,
+            paddingBottom: 120,
           }}
         >
           <motion.button
