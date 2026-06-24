@@ -50,7 +50,7 @@ export default function LandingPage({ onStart }) {
           style={{
             fontFamily: "'Space Mono', monospace",
             fontWeight: 400,
-            fontSize: 'clamp(68px, 9.5vw, 128px)',
+            fontSize: 'clamp(56px, 8vw, 100px)',
             lineHeight: 1,
             letterSpacing: '-3px',
             color: '#e2e6f5',
@@ -74,12 +74,12 @@ export default function LandingPage({ onStart }) {
         style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          fontSize: 'clamp(20px, 2vw, 28px)',
+          fontSize: 'clamp(16px, 1.5vw, 22px)',
           lineHeight: 1.85,
           color: 'rgba(175,185,220,0.72)',
           textAlign: 'center',
-          maxWidth: 540,
-          marginBottom: 44,
+          maxWidth: 700,
+          marginBottom: 36,
           letterSpacing: '0.01em',
         }}
       >
@@ -88,7 +88,7 @@ export default function LandingPage({ onStart }) {
       </motion.p>
 
       {/* Floating bias pills */}
-      <motion.div variants={up} style={{ display: 'flex', gap: 14, marginBottom: 52, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <motion.div variants={up} style={{ display: 'flex', gap: 14, marginBottom: 38, flexWrap: 'wrap', justifyContent: 'center' }}>
         {PILLS.map((p) => (
           <motion.span
             key={p.label}
@@ -97,9 +97,9 @@ export default function LandingPage({ onStart }) {
             transition={{ duration: 0.7, delay: p.delay, ease: [0.22,1,0.36,1] }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: '24px',
+              fontSize: '20px',
               letterSpacing: '3px',
-              padding: '18px 32px',
+              padding: '14px 28px',
               borderRadius: '999px',
               background: p.bg,
               border: "1px solid rgba(139,92,246,0.3)",
@@ -118,7 +118,7 @@ export default function LandingPage({ onStart }) {
       {/* CTA */}
       <motion.div
         variants={up}
-        style={{ marginTop: 30 }}
+        style={{ marginTop: 15 }}
       >
         <CTAButton onClick={onStart}>Start Analysis</CTAButton>
       </motion.div>
@@ -155,11 +155,11 @@ export function CTAButton({ onClick, children, disabled = false, loading = false
       whileTap={!disabled ? { scale: 0.96 } : {}}
       style={{
         fontFamily: "'Space Mono', monospace",
-        fontSize: 24,
+        fontSize: 20,
         letterSpacing: '3px',
         textTransform: 'uppercase',
         color: disabled ? 'rgba(140,150,180,0.4)' : '#fff',
-        padding: '24px 88px',
+        padding: '20px 70px',
         borderRadius: 999,
         background: disabled
           ? 'rgba(60,65,90,0.1)'
