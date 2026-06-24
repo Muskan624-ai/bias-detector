@@ -37,11 +37,11 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
   return (
     <motion.div
       className="absolute inset-0 flex flex-col items-center justify-center"
-      style={{ padding: '32px 5vw' }}
+      style={{ padding: '16px 5vw 32px' }} // Reduced top padding to move Title/Subtitle up
       variants={pv} initial="hidden" animate="show" exit="exit"
     >
       {/* Page header */}
-      <motion.div variants={ch} style={{ textAlign: 'center', marginBottom: 24 }}>
+      <motion.div variants={ch} style={{ textAlign: 'center', marginBottom: 16 }}> {/* Reduced gap under header */}
         <h1 style={{
           fontFamily: "'Space Mono', monospace",
           fontSize: 'clamp(18px, 2vw, 30px)',
@@ -62,9 +62,15 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
         </p>
       </motion.div>
 
-      {/* ── Main workspace card ── */}
-      <motion.div variants={ch} style={{ width: '100%', maxWidth: 'min(1050px, 88vw)' }}>
-
+      {/* ── Main workspace card (Analysis Box) ── */}
+      <motion.div 
+        variants={ch} 
+        style={{ 
+          width: '100%', 
+          maxWidth: 'min(1050px, 88vw)',
+          marginTop: 32 // Added margin top to move the analysis box down
+        }}
+      >
         {/* Workspace panel */}
         <div
           className={focused ? 'textarea-focus-glow' : ''}
@@ -92,7 +98,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
 
           {/* Workspace header bar */}
           <div style={{
-            display: 'flex', alignItems: 'center', justifyCONtent: 'space-between',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             padding: '22px 36px 20px',
             borderBottom: '1px solid rgba(178,102,255,0.1)',
           }}>
@@ -187,8 +193,8 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
         )}
       </motion.div>
 
-      {/* CTA */}
-      <motion.div variants={ch} style={{ marginTop: 20 }}>
+      {/* CTA (Analyze Button) */}
+      <motion.div variants={ch} style={{ marginTop: 40 }}> {/* Increased layout gap to move button down */}
         <CTAButton onClick={handleAnalyze} disabled={!canGo} loading={loading}>
           {loading ? 'Analyzing…' : 'Analyze Bias'}
         </CTAButton>
