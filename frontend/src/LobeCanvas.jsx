@@ -22,24 +22,23 @@ export default function LobeCanvas({ closing }) {
     }
 
     // ── Scene data ───────────────────────────────────────────────────────────
-    let nodes = [], edges = [], particles = [], hexagons = []
+    let nodes = [], edges = [], particles = []
 
     function buildScene() {
       const W = canvas.width, H = canvas.height
       nodes = []
       edges = []
       particles = []
-      hexagons = []
 
-      // Balanced node count to prevent background overcrowding
-      const nodeCount = Math.floor((W * H) / 18000)
+      // Balanced density node count — prevents empty gaps without overloading frames
+      const nodeCount = Math.floor((W * H) / 15000)
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
           bx: Math.random() * W,   // base x
           by: Math.random() * H,   // base y
           x: 0, y: 0,              // current (computed each frame)
-          // Significantly smaller, pin-prick dot sizing for structural data styling
-          r: 0.8 + Math.random() * 1.2,
+          // Sharp, ultra-fine microscopic data nodes
+          r: 0.6 + Math.random() * 0.8,
           speed: 0.15 + Math.random() * 0.3,
           phase: Math.random() * Math.PI * 2,
           color: Math.random() > 0.55 ? '#B266FF' : '#58E6FF',
@@ -47,7 +46,7 @@ export default function LobeCanvas({ closing }) {
         })
       }
 
-      // Slightly wider local clustering radius to ensure web connections form cleanly
+      // Stable local web structural connections
       const maxDist = Math.min(W, H) * 0.14
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
@@ -59,69 +58,18 @@ export default function LobeCanvas({ closing }) {
         }
       }
 
-      // Edge traversal particles tuned down to blend smoothly into background web structure
+      // Rare edge traversal particles (~40% active paths) for a premium, clean layout feel
       edges.forEach((e, i) => {
-        if (Math.random() > 0.3) return
+        if (Math.random() > 0.6) return
         particles.push({
           edgeIdx: i,
           t: Math.random(),
           speed: 0.002 + Math.random() * 0.004,
           dir: Math.random() > 0.5 ? 1 : -1,
-          size: 0.8 + Math.random() * 1.0,
+          size: 0.6 + Math.random() * 0.8,
           color: Math.random() > 0.5 ? 'rgba(178,102,255,' : 'rgba(88,230,255,',
         })
       })
-
-      // Hexagons returned to a subtle accent role so they aren't drowned out by noise
-      const hexCount = 5 + Math.floor(W / 350)
-      for (let i = 0; i < hexCount; i++) {
-        hexagons.push({
-          bx: 0.08 * W + Math.random() * 0.84 * W,
-          by: 0.08 * H + Math.random() * 0.84 * H,
-          size: 40 + Math.random() * 90,
-          rot: Math.random() * Math.PI,
-          rotSpeed: (Math.random() - 0.5) * 0.004,
-          phase: Math.random() * Math.PI * 2,
-          opacity: 0.03 + Math.random() * 0.05,
-          color: Math.random() > 0.5 ? '#B266FF' : '#58E6FF',
-        })
-      }
-    }
-
-    // ── Draw hexagon wireframe ───────────────────────────────────────────────
-    function drawHex(ctx, x, y, size, rot, opacity, color) {
-      ctx.save()
-      ctx.globalAlpha = opacity
-      ctx.strokeStyle = color
-      ctx.lineWidth = 0.8
-      ctx.beginPath()
-      for (let i = 0; i < 6; i++) {
-        const a = rot + (i / 6) * Math.PI * 2
-        const px = x + Math.cos(a) * size
-        const py = y + Math.sin(a) * size
-        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)
-      }
-      ctx.closePath()
-      ctx.stroke()
-      // Inner smaller hex
-      ctx.beginPath()
-      for (let i = 0; i < 6; i++) {
-        const a = rot + (i / 6) * Math.PI * 2
-        const px = x + Math.cos(a) * size * 0.55
-        const py = y + Math.sin(a) * size * 0.55
-        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)
-      }
-      ctx.closePath()
-      ctx.stroke()
-      // Spokes
-      for (let i = 0; i < 6; i++) {
-        const a = rot + (i / 6) * Math.PI * 2
-        ctx.beginPath()
-        ctx.moveTo(x, y)
-        ctx.lineTo(x + Math.cos(a) * size * 0.55, y + Math.sin(a) * size * 0.55)
-        ctx.stroke()
-      }
-      ctx.restore()
     }
 
     // ── Main frame loop ─────────────────────────────────────────────────────
@@ -153,9 +101,10 @@ export default function LobeCanvas({ closing }) {
         const a = nodes[e.a], b = nodes[e.b]
         const dx = a.x - b.x, dy = a.y - b.y
         const dist = Math.sqrt(dx*dx + dy*dy)
-        const maxD = Math.min(W, H) * 0.16 // Matches the localized constraints perfectly
+        const maxD = Math.min(W, H) * 0.16
         if (dist > maxD) return
-        const alpha = (1 - dist / maxD) * (0.07 + 0.04 * (1 - compress))
+        // Heightened structural line visibility to shift focus from raw dots to the grid geometry
+        const alpha = (1 - dist / maxD) * (0.12 + 0.06 * (1 - compress))
         ctx.save()
         ctx.globalAlpha = alpha
         ctx.strokeStyle = 'rgba(178,102,255,1)'
@@ -182,7 +131,7 @@ export default function LobeCanvas({ closing }) {
         ctx.globalAlpha = alpha * (0.5 + 0.5 * (1 - compress))
         ctx.fillStyle = p.color + alpha.toFixed(2) + ')'
         ctx.shadowColor = p.color + '0.6)'
-        ctx.shadowBlur = 3
+        ctx.shadowBlur = 2
         ctx.beginPath()
         ctx.arc(px, py, p.size, 0, Math.PI * 2)
         ctx.fill()
@@ -192,7 +141,6 @@ export default function LobeCanvas({ closing }) {
       // ── Draw nodes ────────────────────────────────────────────────────────
       nodes.forEach(n => {
         const pulse = 0.5 + 0.5 * Math.sin(s.t * 1.5 + n.pulsePhase)
-        // Reduced baseline opacity to pull nodes back into deep background space
         const alpha = (0.15 + 0.25 * pulse) * (1 - compress * 0.3)
         const glowR = n.r * (1.5 + pulse * 1.5)
 
@@ -213,22 +161,12 @@ export default function LobeCanvas({ closing }) {
         ctx.globalAlpha = alpha
         ctx.fillStyle = n.color
         ctx.shadowColor = n.color
-        // Reduced glow blur factor to maintain a sharp telemetry aesthetic
-        ctx.shadowBlur = 4
+        // Tight, sharp shadow radius prevents Christmas-light clutter
+        ctx.shadowBlur = 2
         ctx.beginPath()
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
         ctx.fill()
         ctx.restore()
-      })
-
-      // ── Draw wireframe hexagons ────────────────────────────────────────────
-      hexagons.forEach(h => {
-        h.rot += h.rotSpeed
-        const floatY = Math.sin(s.t * 0.4 + h.phase) * 12
-        const hx = h.bx + (cx - h.bx) * compress * 0.8
-        const hy = h.by + floatY + (cy - h.by) * compress * 0.8
-        const opacity = h.opacity * (1 - compress * 0.5)
-        drawHex(ctx, hx, hy, h.size, h.rot, opacity, h.color)
       })
 
       // ── Center convergence flash during transition ─────────────────────────
