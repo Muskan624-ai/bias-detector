@@ -39,7 +39,7 @@ Can be downloaded from here: https://drive.google.com/drive/u/0/folders/1zY3jNMk
 - Multiple model versions tested and integrated successfully
 - Project structure stabilized for continued development
 
-# Frontend (Lastest Work)
+# Frontend (Latest Work)
 
 Frontend application for the Bias Detector project built using React and Vite.
 
