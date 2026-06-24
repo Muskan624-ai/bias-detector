@@ -41,10 +41,10 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
       variants={pv} initial="hidden" animate="show" exit="exit"
     >
       {/* Page header */}
-      <motion.div variants={ch} style={{ textAlign: 'center', marginBottom: 40 }}>
+      <motion.div variants={ch} style={{ textAlign: 'center', marginBottom: 24 }}>
         <h1 style={{
           fontFamily: "'Space Mono', monospace",
-          fontSize: 'clamp(32px, 4vw, 52px)',
+          fontSize: 'clamp(18px, 2vw, 30px)',
           fontWeight: 400,
           color: 'rgba(210,218,240,0.65)',
           letterSpacing: '-0.5px',
@@ -54,7 +54,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
         </h1>
         <p style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: 18,
+          fontSize: 11,
           color: 'rgba(140,152,190,0.5)',
           letterSpacing: '1px',
         }}>
@@ -63,14 +63,14 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
       </motion.div>
 
       {/* ── Main workspace card ── */}
-      <motion.div variants={ch} style={{ width: '100%', maxWidth: 'min(1350px, 96vw)' }}>
+      <motion.div variants={ch} style={{ width: '100%', maxWidth: 'min(1050px, 88vw)' }}>
 
         {/* Workspace panel */}
         <div
           className={focused ? 'textarea-focus-glow' : ''}
           style={{
             position: 'relative',
-            borderRadius: 20,
+            borderRadius: 16,
             background: 'rgba(12,16,38,0.82)',
             border: error
               ? '1px solid rgba(220,70,70,0.5)'
@@ -92,7 +92,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
 
           {/* Workspace header bar */}
           <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            display: 'flex', alignItems: 'center', justifyCONtent: 'space-between',
             padding: '22px 36px 20px',
             borderBottom: '1px solid rgba(178,102,255,0.1)',
           }}>
@@ -133,12 +133,12 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
             placeholder="Paste any article, job description, or statement to detect bias…"
             style={{
               width: '100%',
-              height: 'clamp(450px, 55vh, 650px)',
+              height: 'clamp(240px, 32vh, 380px)',
               background: 'transparent',
               border: 'none',
-              padding: '40px 48px',
+              padding: '20px 24px',
               fontFamily: "'Inter', sans-serif",
-              fontSize: 'clamp(20px, 1.8vw, 24px)',
+              fontSize: 'clamp(14px, 1.1vw, 16px)',
               fontWeight: 300,
               lineHeight: 1.85,
               color: 'rgba(210,220,245,0.9)',
@@ -188,7 +188,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
       </motion.div>
 
       {/* CTA */}
-      <motion.div variants={ch} style={{ marginTop: 60 }}>
+      <motion.div variants={ch} style={{ marginTop: 20 }}>
         <CTAButton onClick={handleAnalyze} disabled={!canGo} loading={loading}>
           {loading ? 'Analyzing…' : 'Analyze Bias'}
         </CTAButton>
