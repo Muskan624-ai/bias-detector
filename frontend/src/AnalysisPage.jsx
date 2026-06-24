@@ -44,7 +44,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
       <motion.div variants={ch} style={{ textAlign: 'center', marginBottom: 40 }}>
         <h1 style={{
           fontFamily: "'Space Mono', monospace",
-          fontSize: 'clamp(22px, 2.8vw, 38px)',
+          fontSize: 'clamp(32px, 4vw, 52px)',
           fontWeight: 400,
           color: 'rgba(210,218,240,0.65)',
           letterSpacing: '-0.5px',
@@ -54,7 +54,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
         </h1>
         <p style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: 13,
+          fontSize: 18,
           color: 'rgba(140,152,190,0.5)',
           letterSpacing: '1px',
         }}>
@@ -63,7 +63,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
       </motion.div>
 
       {/* ── Main workspace card ── */}
-      <motion.div variants={ch} style={{ width: '100%', maxWidth: 'min(1200px, 92vw)' }}>
+      <motion.div variants={ch} style={{ width: '100%', maxWidth: 'min(1350px, 96vw)' }}>
 
         {/* Workspace panel */}
         <div
@@ -93,7 +93,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
           {/* Workspace header bar */}
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            padding: '16px 28px 14px',
+            padding: '22px 36px 20px',
             borderBottom: '1px solid rgba(178,102,255,0.1)',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -104,7 +104,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
             </div>
             <span style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 10,
+              fontSize: 16,
               letterSpacing: '3px',
               color: 'rgba(130,145,185,0.4)',
               textTransform: 'uppercase',
@@ -113,7 +113,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
             </span>
             <span style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 10,
+              fontSize: 14,
               color: 'rgba(100,115,160,0.4)',
               letterSpacing: '1px',
             }}>
@@ -133,12 +133,12 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
             placeholder="Paste any article, job description, or statement to detect bias…"
             style={{
               width: '100%',
-              height: 'clamp(320px, 42vh, 520px)',
+              height: 'clamp(450px, 55vh, 650px)',
               background: 'transparent',
               border: 'none',
-              padding: '28px 32px',
+              padding: '40px 48px',
               fontFamily: "'Inter', sans-serif",
-              fontSize: 'clamp(15px, 1.3vw, 18px)',
+              fontSize: 'clamp(20px, 1.8vw, 24px)',
               fontWeight: 300,
               lineHeight: 1.85,
               color: 'rgba(210,220,245,0.9)',
@@ -154,7 +154,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
           }}>
             <span style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 10,
+              fontSize: 14,
               letterSpacing: '2.5px',
               color: 'rgba(110,125,170,0.38)',
               textTransform: 'uppercase',
@@ -163,7 +163,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: focused ? '#B266FF' : 'rgba(120,130,170,0.3)', boxShadow: focused ? '0 0 10px #B266FF' : 'none', transition: 'all 0.3s' }} />
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'rgba(110,125,170,0.4)', letterSpacing: '1.5px' }}>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 14, color: 'rgba(110,125,170,0.4)', letterSpacing: '1.5px' }}>
                 {focused ? 'EDITING' : 'IDLE'}
               </span>
             </div>
@@ -188,7 +188,7 @@ export default function AnalysisPage({ onAnalyze, error, onClearError }) {
       </motion.div>
 
       {/* CTA */}
-      <motion.div variants={ch} style={{ marginTop: 36 }}>
+      <motion.div variants={ch} style={{ marginTop: 60 }}>
         <CTAButton onClick={handleAnalyze} disabled={!canGo} loading={loading}>
           {loading ? 'Analyzing…' : 'Analyze Bias'}
         </CTAButton>
