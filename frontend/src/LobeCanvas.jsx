@@ -31,14 +31,15 @@ export default function LobeCanvas({ closing }) {
       particles = []
       hexagons = []
 
-      // Increased node density for a rich, high-fidelity neural layer
-      const nodeCount = Math.floor((W * H) / 8000)
+      // Balanced node count to prevent background overcrowding
+      const nodeCount = Math.floor((W * H) / 18000)
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
           bx: Math.random() * W,   // base x
           by: Math.random() * H,   // base y
           x: 0, y: 0,              // current (computed each frame)
-          r: 1.5 + Math.random() * 2.5,
+          // Significantly smaller, pin-prick dot sizing for structural data styling
+          r: 0.8 + Math.random() * 1.2,
           speed: 0.15 + Math.random() * 0.3,
           phase: Math.random() * Math.PI * 2,
           color: Math.random() > 0.55 ? '#B266FF' : '#58E6FF',
@@ -46,8 +47,8 @@ export default function LobeCanvas({ closing }) {
         })
       }
 
-      // Reduced connection distance for sophisticated local data clusters
-      const maxDist = Math.min(W, H) * 0.12
+      // Slightly wider local clustering radius to ensure web connections form cleanly
+      const maxDist = Math.min(W, H) * 0.14
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].bx - nodes[j].bx
@@ -58,21 +59,21 @@ export default function LobeCanvas({ closing }) {
         }
       }
 
-      // Heightened edge activity rate to keep visual systems fluid and alive
+      // Edge traversal particles tuned down to blend smoothly into background web structure
       edges.forEach((e, i) => {
-        if (Math.random() > 0.2) return
+        if (Math.random() > 0.3) return
         particles.push({
           edgeIdx: i,
           t: Math.random(),
           speed: 0.002 + Math.random() * 0.004,
           dir: Math.random() > 0.5 ? 1 : -1,
-          size: 1.5 + Math.random() * 1.5,
+          size: 0.8 + Math.random() * 1.0,
           color: Math.random() > 0.5 ? 'rgba(178,102,255,' : 'rgba(88,230,255,',
         })
       })
 
-      // Elevated background structure via technical wireframe elements
-      const hexCount = 8 + Math.floor(W / 250)
+      // Hexagons returned to a subtle accent role so they aren't drowned out by noise
+      const hexCount = 5 + Math.floor(W / 350)
       for (let i = 0; i < hexCount; i++) {
         hexagons.push({
           bx: 0.08 * W + Math.random() * 0.84 * W,
@@ -81,7 +82,7 @@ export default function LobeCanvas({ closing }) {
           rot: Math.random() * Math.PI,
           rotSpeed: (Math.random() - 0.5) * 0.004,
           phase: Math.random() * Math.PI * 2,
-          opacity: 0.04 + Math.random() * 0.06,
+          opacity: 0.03 + Math.random() * 0.05,
           color: Math.random() > 0.5 ? '#B266FF' : '#58E6FF',
         })
       }
@@ -152,13 +153,13 @@ export default function LobeCanvas({ closing }) {
         const a = nodes[e.a], b = nodes[e.b]
         const dx = a.x - b.x, dy = a.y - b.y
         const dist = Math.sqrt(dx*dx + dy*dy)
-        const maxD = Math.min(W, H) * 0.14 // Balanced edge cutoff to blend with localized connection distances
+        const maxD = Math.min(W, H) * 0.16 // Matches the localized constraints perfectly
         if (dist > maxD) return
-        const alpha = (1 - dist / maxD) * (0.06 + 0.04 * (1 - compress))
+        const alpha = (1 - dist / maxD) * (0.07 + 0.04 * (1 - compress))
         ctx.save()
         ctx.globalAlpha = alpha
         ctx.strokeStyle = 'rgba(178,102,255,1)'
-        ctx.lineWidth = 0.6
+        ctx.lineWidth = 0.55
         ctx.beginPath()
         ctx.moveTo(a.x, a.y)
         ctx.lineTo(b.x, b.y)
@@ -176,12 +177,12 @@ export default function LobeCanvas({ closing }) {
         const a = nodes[e.a], b = nodes[e.b]
         const px = a.x + (b.x - a.x) * p.t
         const py = a.y + (b.y - a.y) * p.t
-        const alpha = 0.5 + 0.5 * Math.sin(s.t * 3 + p.t * 10)
+        const alpha = 0.4 + 0.4 * Math.sin(s.t * 3 + p.t * 10)
         ctx.save()
-        ctx.globalAlpha = alpha * (0.6 + 0.4 * (1 - compress))
+        ctx.globalAlpha = alpha * (0.5 + 0.5 * (1 - compress))
         ctx.fillStyle = p.color + alpha.toFixed(2) + ')'
-        ctx.shadowColor = p.color + '0.8)'
-        ctx.shadowBlur = 6
+        ctx.shadowColor = p.color + '0.6)'
+        ctx.shadowBlur = 3
         ctx.beginPath()
         ctx.arc(px, py, p.size, 0, Math.PI * 2)
         ctx.fill()
@@ -191,27 +192,29 @@ export default function LobeCanvas({ closing }) {
       // ── Draw nodes ────────────────────────────────────────────────────────
       nodes.forEach(n => {
         const pulse = 0.5 + 0.5 * Math.sin(s.t * 1.5 + n.pulsePhase)
-        const alpha = (0.35 + 0.45 * pulse) * (1 - compress * 0.3)
-        const glowR = n.r * (2 + pulse * 2)
+        // Reduced baseline opacity to pull nodes back into deep background space
+        const alpha = (0.15 + 0.25 * pulse) * (1 - compress * 0.3)
+        const glowR = n.r * (1.5 + pulse * 1.5)
 
-        // Glow halo
+        // Dimmed glow halo
         const isP = n.color === '#B266FF'
-        const gc0 = isP ? `rgba(178,102,255,${alpha * 0.3})` : `rgba(88,230,255,${alpha * 0.3})`
-        const ggrad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR * 3)
+        const gc0 = isP ? `rgba(178,102,255,${alpha * 0.2})` : `rgba(88,230,255,${alpha * 0.2})`
+        const ggrad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR * 2.5)
         ggrad.addColorStop(0, gc0)
         ggrad.addColorStop(1, 'rgba(0,0,0,0)')
         ctx.save()
         ctx.globalAlpha = 1
         ctx.fillStyle = ggrad
         ctx.beginPath()
-        ctx.arc(n.x, n.y, glowR * 3, 0, Math.PI * 2)
+        ctx.arc(n.x, n.y, glowR * 2.5, 0, Math.PI * 2)
         ctx.fill()
 
         // Core dot
         ctx.globalAlpha = alpha
         ctx.fillStyle = n.color
         ctx.shadowColor = n.color
-        ctx.shadowBlur = 8
+        // Reduced glow blur factor to maintain a sharp telemetry aesthetic
+        ctx.shadowBlur = 4
         ctx.beginPath()
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
         ctx.fill()
