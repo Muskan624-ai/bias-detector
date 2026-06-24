@@ -129,10 +129,10 @@ export default function ResultsPage({ result, onBack }) {
       <div
         style={{
           width: "100%",
-          maxWidth: "min(1100px, 93vw)",
+          maxWidth: "min(1400px, 96vw)",
           display: "flex",
           flexDirection: "column",
-          gap: 16,
+          gap: 24,
         }}
       >
         {/* ── Status row ── */}
@@ -215,7 +215,7 @@ export default function ResultsPage({ result, onBack }) {
           <Card
             glowColor={accent}
             style={{
-              padding: "40px 52px",
+              padding: "60px 72px",
               background: `linear-gradient(135deg, rgba(16,10,36,0.92) 0%, rgba(10,16,44,0.88) 100%)`,
               border: `1px solid ${accent}30`,
               boxShadow: `0 0 100px ${accent}0d, 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
@@ -241,7 +241,7 @@ export default function ResultsPage({ result, onBack }) {
                 style={{
                   width: 5,
                   flexShrink: 0,
-                  height: 64,
+                  height: 100,
                   borderRadius: 999,
                   background: `linear-gradient(to bottom, ${accent}, ${accent2})`,
                   boxShadow: `0 0 20px ${accent}66`,
@@ -250,7 +250,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(32px, 4.5vw, 56px)",
+                  fontSize: "clamp(50px, 6vw, 80px)",
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: is_biased ? "#d4aaff" : "#86f0ff",
@@ -268,7 +268,7 @@ export default function ResultsPage({ result, onBack }) {
         <motion.div variants={row}>
           <Card
             style={{
-              padding: "36px 52px",
+              padding: "50px 72px",
               background: "rgba(13,17,44,0.78)",
               border: "1px solid rgba(110,128,205,0.15)",
               boxShadow:
@@ -279,7 +279,7 @@ export default function ResultsPage({ result, onBack }) {
             <p
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "clamp(16px, 1.5vw, 20px)",
+                fontSize: "clamp(22px, 2vw, 28px)",
                 fontWeight: 300,
                 lineHeight: 1.95,
                 color: "rgba(198,208,238,0.88)",
@@ -294,7 +294,7 @@ export default function ResultsPage({ result, onBack }) {
         <motion.div variants={row}>
           <Card
             style={{
-              padding: "32px 52px",
+              padding: "50px 72px",
               background: "rgba(11,15,40,0.72)",
               border: "1px solid rgba(100,118,198,0.12)",
               boxShadow:
@@ -306,7 +306,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(28px, 3.5vw, 48px)",
+                  fontSize: "clamp(44px, 5vw, 72px)",
                   fontWeight: 400,
                   letterSpacing: "-1px",
                   color: "rgba(218,226,248,0.9)",
@@ -367,8 +367,8 @@ export default function ResultsPage({ result, onBack }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            paddingTop: 8,
-            paddingBottom: 8,
+            paddingTop: 40,
+            paddingBottom: 30,
           }}
         >
           <motion.button
@@ -377,17 +377,17 @@ export default function ResultsPage({ result, onBack }) {
             whileTap={{ scale: 0.96 }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 16,
+              fontSize: 22,
               letterSpacing: "3px",
               textTransform: "uppercase",
               color: "#d4aaff",
-              padding: "20px 60px",
+              padding: "26px 90px",
               borderRadius: 999,
               border: "1px solid rgba(178,102,255,0.45)",
               background:
                 "linear-gradient(135deg, rgba(178,102,255,0.12), rgba(88,230,255,0.08))",
               backdropFilter: "blur(12px)",
-              boxShadow: "0 0 35px rgba(178,102,255,0.18)",
+              boxShadow: "0 0 60px rgba(178,102,255,0.35)",
               cursor: "pointer",
               transition: "all 0.25s ease",
             }}
