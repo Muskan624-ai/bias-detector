@@ -61,11 +61,11 @@ function Label({ children }) {
     <p
       style={{
         fontFamily: "'Space Mono', monospace",
-        fontSize: 10,
-        letterSpacing: "3.5px",
+        fontSize: 18,
+        letterSpacing: "5px",
         textTransform: "uppercase",
         color: "rgba(140,155,195,0.5)",
-        marginBottom: 14,
+        marginBottom: 24,
       }}
     >
       {children}
@@ -105,11 +105,11 @@ export default function ResultsPage({ result, onBack }) {
         <h1
           style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: "clamp(20px, 2.5vw, 34px)",
+            fontSize: "clamp(40px, 4vw, 60px)",
             fontWeight: 400,
             color: "rgba(200,210,235,0.55)",
             letterSpacing: "-0.5px",
-            marginBottom: 6,
+            marginBottom: 12,
           }}
         >
           Bias&#8209;Detector
@@ -117,9 +117,9 @@ export default function ResultsPage({ result, onBack }) {
         <p
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: 12,
+            fontSize: 20,
             color: "rgba(130,145,185,0.4)",
-            letterSpacing: "1.5px",
+            letterSpacing: "2px",
           }}
         >
           Analysis Report
@@ -163,7 +163,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: 13,
+                  fontSize: 22,
                   letterSpacing: "2px",
                   color: "#6dcea0",
                 }}
@@ -200,7 +200,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: 18,
+                  fontSize: 22,
                   letterSpacing: "2px",
                   color: is_biased ? "#f08888" : "#7acbf0",
                 }}
@@ -216,7 +216,7 @@ export default function ResultsPage({ result, onBack }) {
           <Card
             glowColor={accent}
             style={{
-              padding: "80px 72px",
+              padding: "60px 48px",
               background: `linear-gradient(135deg, rgba(16,10,36,0.92) 0%, rgba(10,16,44,0.88) 100%)`,
               border: `1px solid ${accent}30`,
               boxShadow: `0 0 100px ${accent}0d, 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
@@ -251,7 +251,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(50px, 6vw, 80px)",
+                  fontSize: "clamp(42px, 5vw, 68px)",
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: is_biased ? "#d4aaff" : "#86f0ff",
@@ -280,7 +280,7 @@ export default function ResultsPage({ result, onBack }) {
             <p
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "clamp(22px, 2vw, 28px)",
+                fontSize: "clamp(26px, 2.2vw, 34px)",
                 fontWeight: 300,
                 lineHeight: 1.95,
                 color: "rgba(198,208,238,0.88)",
@@ -307,7 +307,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(44px, 5vw, 72px)",
+                  fontSize: "clamp(32px, 4vw, 52px)",
                   fontWeight: 400,
                   letterSpacing: "-1px",
                   color: "rgba(218,226,248,0.9)",
@@ -368,8 +368,8 @@ export default function ResultsPage({ result, onBack }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            paddingTop: 100,
-            paddingBottom: 120,
+            paddingTop: 160,
+            paddingBottom: 160,
           }}
         >
           <motion.button
@@ -378,11 +378,11 @@ export default function ResultsPage({ result, onBack }) {
             whileTap={{ scale: 0.96 }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 22,
+              fontSize: 18,
               letterSpacing: "3px",
               textTransform: "uppercase",
               color: "#d4aaff",
-              padding: "26px 90px",
+              padding: "22px 70px",
               borderRadius: 999,
               border: "1px solid rgba(178,102,255,0.45)",
               background:
