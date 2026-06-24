@@ -61,8 +61,8 @@ function Label({ children }) {
     <p
       style={{
         fontFamily: "'Space Mono', monospace",
-        fontSize: 22,
-        letterSpacing: "6px",
+        fontSize: 14,
+        letterSpacing: "4px",
         textTransform: "uppercase",
         color: "rgba(140,155,195,0.5)",
         marginBottom: 24,
@@ -89,7 +89,7 @@ export default function ResultsPage({ result, onBack }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "180px 5vw 80px",
+        padding: "100px 5vw 60px",
         overflowY: "auto",
       }}
       variants={pv}
@@ -105,7 +105,7 @@ export default function ResultsPage({ result, onBack }) {
         <h1
           style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: "clamp(52px, 5vw, 72px)",
+            fontSize: "clamp(34px, 3vw, 50px)",
             fontWeight: 400,
             color: "rgba(200,210,235,0.55)",
             letterSpacing: "-0.5px",
@@ -117,7 +117,7 @@ export default function ResultsPage({ result, onBack }) {
         <p
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: 24,
+            fontSize: 15,
             color: "rgba(130,145,185,0.4)",
             letterSpacing: "2px",
           }}
@@ -216,7 +216,7 @@ export default function ResultsPage({ result, onBack }) {
           <Card
             glowColor={accent}
             style={{
-              padding: "70px 60px",
+              padding: "50px 48px",
               background: `linear-gradient(135deg, rgba(16,10,36,0.92) 0%, rgba(10,16,44,0.88) 100%)`,
               border: `1px solid ${accent}30`,
               boxShadow: `0 0 100px ${accent}0d, 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
@@ -251,7 +251,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(36px, 4vw, 56px)",
+                  fontSize: "clamp(28px, 3vw, 44px)",
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: is_biased ? "#d4aaff" : "#86f0ff",
@@ -269,7 +269,7 @@ export default function ResultsPage({ result, onBack }) {
         <motion.div variants={row}>
           <Card
             style={{
-              padding: "50px 72px",
+              padding: "38px 48px",
               background: "rgba(13,17,44,0.78)",
               border: "1px solid rgba(110,128,205,0.15)",
               boxShadow:
@@ -280,7 +280,7 @@ export default function ResultsPage({ result, onBack }) {
             <p
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "clamp(26px, 2.2vw, 34px)",
+                fontSize: "clamp(16px, 1.3vw, 22px)",
                 fontWeight: 300,
                 lineHeight: 1.95,
                 color: "rgba(198,208,238,0.88)",
@@ -295,7 +295,7 @@ export default function ResultsPage({ result, onBack }) {
         <motion.div variants={row}>
           <Card
             style={{
-              padding: "50px 72px",
+              padding: "38px 48px",
               background: "rgba(11,15,40,0.72)",
               border: "1px solid rgba(100,118,198,0.12)",
               boxShadow:
@@ -307,7 +307,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(24px, 3vw, 40px)",
+                  fontSize: "clamp(18px, 2vw, 30px)",
                   fontWeight: 400,
                   letterSpacing: "-1px",
                   color: "rgba(218,226,248,0.9)",
@@ -378,11 +378,11 @@ export default function ResultsPage({ result, onBack }) {
             whileTap={{ scale: 0.96 }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 18,
+              fontSize: 15,
               letterSpacing: "3px",
               textTransform: "uppercase",
               color: "#d4aaff",
-              padding: "22px 70px",
+              padding: "18px 48px",
               borderRadius: 999,
               border: "1px solid rgba(178,102,255,0.45)",
               background:
