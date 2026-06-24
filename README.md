@@ -12,8 +12,7 @@ https://huggingface.co/datasets/allenai/social_bias_frames
 https://uclanlp.github.io/corefBias/overview?utm_source=chatgpt.com
 
 # Model Weights  
-Can be downloaded from here: https://drive.google.com/drive/u/0/folders/1zY3jNMk23CEe2QrCC5LXmGA1AhMu5zIg
-
+Can be downloaded from here: 
 # Backend Progress (Latest Work)
 
 - Backend repository structure finalized and cleaned
