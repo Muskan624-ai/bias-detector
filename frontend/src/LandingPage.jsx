@@ -28,7 +28,7 @@ export default function LandingPage({ onStart }) {
       exit="exit"
     >
       {/* Eyebrow */}
-     <motion.div variants={up} className="flex items-center gap-4 mb-24">
+     <motion.div variants={up} className="flex items-center gap-4 mb-16">
         <span style={{ width: 56, height: 1, background: 'linear-gradient(to right, transparent, rgba(178,102,255,0.6))' }} />
         <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 14, letterSpacing: '5px', color: 'rgba(178,102,255,0.6)', textTransform: 'uppercase' }}>
           AI · Language Analysis
@@ -37,7 +37,7 @@ export default function LandingPage({ onStart }) {
       </motion.div>
 
       {/* HERO TITLE */}
-      <motion.div variants={up} style={{ position: 'relative', textAlign: 'center', marginBottom: 36 }}>
+      <motion.div variants={up} style={{ position: 'relative', textAlign: 'center', marginBottom: 28 }}>
         {/* Deep glow behind title */}
         <div style={{
           position: 'absolute', inset: '-40% -20%',
@@ -50,7 +50,7 @@ export default function LandingPage({ onStart }) {
           style={{
             fontFamily: "'Space Mono', monospace",
             fontWeight: 400,
-            fontSize: 'clamp(56px, 8vw, 100px)',
+            fontSize: 'clamp(44px, 6vw, 80px)',
             lineHeight: 1,
             letterSpacing: '-3px',
             color: '#e2e6f5',
@@ -65,7 +65,7 @@ export default function LandingPage({ onStart }) {
       {/* Thin vertical line */}
       <motion.div
         variants={up}
-        style={{ width: 1, height: 52, marginBottom: 32, background: 'linear-gradient(to bottom, rgba(178,102,255,0.6), rgba(88,230,255,0.2), transparent)' }}
+        style={{ width: 1, height: 38, marginBottom: 32, background: 'linear-gradient(to bottom, rgba(178,102,255,0.6), rgba(88,230,255,0.2), transparent)' }}
       />
 
       {/* Subtitle */}
@@ -74,12 +74,12 @@ export default function LandingPage({ onStart }) {
         style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          fontSize: 'clamp(16px, 1.5vw, 22px)',
+          fontSize: 'clamp(14px, 1.2vw, 18px)',
           lineHeight: 1.85,
           color: 'rgba(175,185,220,0.72)',
           textAlign: 'center',
           maxWidth: 700,
-          marginBottom: 36,
+          marginBottom: 28,
           letterSpacing: '0.01em',
         }}
       >
@@ -88,7 +88,7 @@ export default function LandingPage({ onStart }) {
       </motion.p>
 
       {/* Floating bias pills */}
-      <motion.div variants={up} style={{ display: 'flex', gap: 14, marginBottom: 38, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <motion.div variants={up} style={{ display: 'flex', gap: 14, marginBottom: 28, flexWrap: 'wrap', justifyContent: 'center' }}>
         {PILLS.map((p) => (
           <motion.span
             key={p.label}
@@ -97,9 +97,9 @@ export default function LandingPage({ onStart }) {
             transition={{ duration: 0.7, delay: p.delay, ease: [0.22,1,0.36,1] }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: '20px',
+              fontSize: '18px',
               letterSpacing: '3px',
-              padding: '14px 28px',
+              padding: '12px 24px',
               borderRadius: '999px',
               background: p.bg,
               border: "1px solid rgba(139,92,246,0.3)",
@@ -118,7 +118,7 @@ export default function LandingPage({ onStart }) {
       {/* CTA */}
       <motion.div
         variants={up}
-        style={{ marginTop: 15 }}
+        style={{ marginTop: 8 }}
       >
         <CTAButton onClick={onStart}>Start Analysis</CTAButton>
       </motion.div>
@@ -155,11 +155,11 @@ export function CTAButton({ onClick, children, disabled = false, loading = false
       whileTap={!disabled ? { scale: 0.96 } : {}}
       style={{
         fontFamily: "'Space Mono', monospace",
-        fontSize: 20,
+        fontSize: 18,
         letterSpacing: '3px',
         textTransform: 'uppercase',
         color: disabled ? 'rgba(140,150,180,0.4)' : '#fff',
-        padding: '20px 70px',
+        padding: '18px 60px',
         borderRadius: 999,
         background: disabled
           ? 'rgba(60,65,90,0.1)'
