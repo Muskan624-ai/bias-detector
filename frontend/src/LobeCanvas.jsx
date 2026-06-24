@@ -31,8 +31,8 @@ export default function LobeCanvas({ closing }) {
       particles = []
       hexagons = []
 
-      // Sparse neural nodes scattered across the canvas
-      const nodeCount = Math.floor((W * H) / 28000)
+      // Increased node density for a rich, high-fidelity neural layer
+      const nodeCount = Math.floor((W * H) / 8000)
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
           bx: Math.random() * W,   // base x
@@ -46,8 +46,8 @@ export default function LobeCanvas({ closing }) {
         })
       }
 
-      // Connect nearby nodes
-      const maxDist = Math.min(W, H) * 0.28
+      // Reduced connection distance for sophisticated local data clusters
+      const maxDist = Math.min(W, H) * 0.12
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].bx - nodes[j].bx
@@ -58,9 +58,9 @@ export default function LobeCanvas({ closing }) {
         }
       }
 
-      // Floating particles along edges
+      // Heightened edge activity rate to keep visual systems fluid and alive
       edges.forEach((e, i) => {
-        if (Math.random() > 0.4) return
+        if (Math.random() > 0.2) return
         particles.push({
           edgeIdx: i,
           t: Math.random(),
@@ -71,8 +71,8 @@ export default function LobeCanvas({ closing }) {
         })
       })
 
-      // Floating wireframe hexagons
-      const hexCount = 4 + Math.floor(W / 400)
+      // Elevated background structure via technical wireframe elements
+      const hexCount = 8 + Math.floor(W / 250)
       for (let i = 0; i < hexCount; i++) {
         hexagons.push({
           bx: 0.08 * W + Math.random() * 0.84 * W,
@@ -152,7 +152,7 @@ export default function LobeCanvas({ closing }) {
         const a = nodes[e.a], b = nodes[e.b]
         const dx = a.x - b.x, dy = a.y - b.y
         const dist = Math.sqrt(dx*dx + dy*dy)
-        const maxD = Math.min(W, H) * 0.32
+        const maxD = Math.min(W, H) * 0.14 // Balanced edge cutoff to blend with localized connection distances
         if (dist > maxD) return
         const alpha = (1 - dist / maxD) * (0.06 + 0.04 * (1 - compress))
         ctx.save()
@@ -195,9 +195,6 @@ export default function LobeCanvas({ closing }) {
         const glowR = n.r * (2 + pulse * 2)
 
         // Glow halo
-        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR * 3)
-        grad.addColorStop(0, n.color.replace('#', 'rgba(') + (n.color === '#B266FF' ? ',178,102,255,' : ',88,230,255,') + (alpha * 0.25) + ')')
-        // simpler:
         const isP = n.color === '#B266FF'
         const gc0 = isP ? `rgba(178,102,255,${alpha * 0.3})` : `rgba(88,230,255,${alpha * 0.3})`
         const ggrad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR * 3)
