@@ -29,7 +29,7 @@ function Card({ children, style = {}, glowColor }) {
     <div
       style={{
         position: "relative",
-        borderRadius: 18,
+        borderRadius: 16, // Synced to Analysis Workspace radius
         backdropFilter: "blur(22px)",
         WebkitBackdropFilter: "blur(22px)",
         overflow: "hidden",
@@ -61,11 +61,11 @@ function Label({ children }) {
     <p
       style={{
         fontFamily: "'Space Mono', monospace",
-        fontSize: 14,
+        fontSize: 12, // Shrunk label text size
         letterSpacing: "4px",
         textTransform: "uppercase",
         color: "rgba(140,155,195,0.5)",
-        marginBottom: 24,
+        marginBottom: 14, // Tighter element spacing inside cards
       }}
     >
       {children}
@@ -89,7 +89,7 @@ export default function ResultsPage({ result, onBack }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "100px 5vw 60px",
+        padding: "48px 5vw 40px", // Compressed top/bottom page padding
         overflowY: "auto",
       }}
       variants={pv}
@@ -100,16 +100,16 @@ export default function ResultsPage({ result, onBack }) {
       {/* Page header */}
       <motion.div
         variants={row}
-        style={{ textAlign: "center", marginBottom: 90 }}
+        style={{ textAlign: "center", marginBottom: 36 }} // Compact header spacing
       >
         <h1
           style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: "clamp(34px, 3vw, 50px)",
+            fontSize: "clamp(18px, 2vw, 30px)", // Synced to Analysis page title scale
             fontWeight: 400,
             color: "rgba(200,210,235,0.55)",
             letterSpacing: "-0.5px",
-            marginBottom: 12,
+            marginBottom: 6,
           }}
         >
           Bias&#8209;Detector
@@ -117,7 +117,7 @@ export default function ResultsPage({ result, onBack }) {
         <p
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: 15,
+            fontSize: 11, // Synced to Analysis page subtitle scale
             color: "rgba(130,145,185,0.4)",
             letterSpacing: "2px",
           }}
@@ -130,30 +130,30 @@ export default function ResultsPage({ result, onBack }) {
       <div
         style={{
           width: "100%",
-          maxWidth: "min(1200px, 85vw)",
+          maxWidth: "min(900px, 82vw)", // Fixed edge-to-edge blowouts with updated width boundaries
           display: "flex",
           flexDirection: "column",
-          gap: 24,
+          gap: 12, // Reduced section layout spacing from 24px
         }}
       >
         {/* ── Status row ── */}
         <motion.div
           variants={row}
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}
         >
           {/* Analysis complete */}
           <Card
             style={{
               background: "rgba(40,120,70,0.12)",
               border: "1px solid rgba(55,160,85,0.28)",
-              padding: "28px 40px",
+              padding: "20px 28px", // Clean status box sizing
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span
                 style={{
-                  width: 9,
-                  height: 9,
+                  width: 7,
+                  height: 7,
                   borderRadius: "50%",
                   background: "#4fc87a",
                   boxShadow: "0 0 10px #4fc87a",
@@ -163,8 +163,8 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: 22,
-                  letterSpacing: "2px",
+                  fontSize: 14,
+                  letterSpacing: "1.5px",
                   color: "#6dcea0",
                 }}
               >
@@ -181,14 +181,14 @@ export default function ResultsPage({ result, onBack }) {
               border: is_biased
                 ? "1px solid rgba(200,55,55,0.3)"
                 : "1px solid rgba(55,140,210,0.28)",
-              padding: "28px 40px",
+              padding: "20px 28px",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span
                 style={{
-                  width: 14,
-                  height: 14,
+                  width: 8,
+                  height: 8,
                   borderRadius: "50%",
                   flexShrink: 0,
                   background: is_biased ? "#e06060" : "#50aadd",
@@ -200,8 +200,8 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: 22,
-                  letterSpacing: "2px",
+                  fontSize: 14,
+                  letterSpacing: "1.5px",
                   color: is_biased ? "#f08888" : "#7acbf0",
                 }}
               >
@@ -216,7 +216,7 @@ export default function ResultsPage({ result, onBack }) {
           <Card
             glowColor={accent}
             style={{
-              padding: "50px 48px",
+              padding: "28px 32px", // Reduced text box boundaries
               background: `linear-gradient(135deg, rgba(16,10,36,0.92) 0%, rgba(10,16,44,0.88) 100%)`,
               border: `1px solid ${accent}30`,
               boxShadow: `0 0 100px ${accent}0d, 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
@@ -237,12 +237,12 @@ export default function ResultsPage({ result, onBack }) {
 
             <Label>Bias Type</Label>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div
                 style={{
-                  width: 5,
+                  width: 4,
                   flexShrink: 0,
-                  height: 100,
+                  height: 36, // Scaled down structural line
                   borderRadius: 999,
                   background: `linear-gradient(to bottom, ${accent}, ${accent2})`,
                   boxShadow: `0 0 20px ${accent}66`,
@@ -251,11 +251,11 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(28px, 3vw, 44px)",
+                  fontSize: "clamp(20px, 2.2vw, 30px)", // Scaled down primary label text
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: is_biased ? "#d4aaff" : "#86f0ff",
-                  letterSpacing: "-1px",
+                  letterSpacing: "-0.5px",
                   textShadow: `0 0 60px ${accent}55`,
                 }}
               >
@@ -269,7 +269,7 @@ export default function ResultsPage({ result, onBack }) {
         <motion.div variants={row}>
           <Card
             style={{
-              padding: "38px 48px",
+              padding: "24px 30px", // Shrunk vertical card breathing room
               background: "rgba(13,17,44,0.78)",
               border: "1px solid rgba(110,128,205,0.15)",
               boxShadow:
@@ -280,9 +280,9 @@ export default function ResultsPage({ result, onBack }) {
             <p
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "clamp(16px, 1.3vw, 22px)",
+                fontSize: "clamp(13px, 1.1vw, 15px)", // Balanced paragraph text
                 fontWeight: 300,
-                lineHeight: 1.95,
+                lineHeight: 1.5, // Tighter line layout
                 color: "rgba(198,208,238,0.88)",
               }}
             >
@@ -295,7 +295,7 @@ export default function ResultsPage({ result, onBack }) {
         <motion.div variants={row}>
           <Card
             style={{
-              padding: "38px 48px",
+              padding: "22px 30px", // Scaled down panel padding
               background: "rgba(11,15,40,0.72)",
               border: "1px solid rgba(100,118,198,0.12)",
               boxShadow:
@@ -303,15 +303,15 @@ export default function ResultsPage({ result, onBack }) {
             }}
           >
             <Label>Confidence Score</Label>
-            <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(18px, 2vw, 30px)",
+                  fontSize: "clamp(16px, 1.6vw, 22px)", // Tightened score readout
                   fontWeight: 400,
-                  letterSpacing: "-1px",
+                  letterSpacing: "-0.5px",
                   color: "rgba(218,226,248,0.9)",
-                  minWidth: 120,
+                  minWidth: 70,
                   flexShrink: 0,
                 }}
               >
@@ -323,39 +323,22 @@ export default function ResultsPage({ result, onBack }) {
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginTop: 10,
+                    marginTop: 6,
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: 10,
-                      color: "rgba(110,125,170,0.4)",
-                      letterSpacing: "1px",
-                    }}
-                  >
-                    0%
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: 10,
-                      color: "rgba(110,125,170,0.4)",
-                      letterSpacing: "1px",
-                    }}
-                  >
-                    50%
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: 10,
-                      color: "rgba(110,125,170,0.4)",
-                      letterSpacing: "1px",
-                    }}
-                  >
-                    100%
-                  </span>
+                  {["0%", "50%", "100%"].map((percent) => (
+                    <span
+                      key={percent}
+                      style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: 9,
+                        color: "rgba(110,125,170,0.4)",
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      {percent}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -368,8 +351,8 @@ export default function ResultsPage({ result, onBack }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            paddingTop: 70,
-            paddingBottom: 80,
+            paddingTop: 24, // Balanced spacing below dashboard card stacks
+            paddingBottom: 16,
           }}
         >
           <motion.button
@@ -378,11 +361,11 @@ export default function ResultsPage({ result, onBack }) {
             whileTap={{ scale: 0.96 }}
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 15,
+              fontSize: 14, // Aligned directly to production dashboard inputs
               letterSpacing: "3px",
               textTransform: "uppercase",
               color: "#d4aaff",
-              padding: "18px 48px",
+              padding: "12px 38px", // Balanced CTA boundary widths
               borderRadius: 999,
               border: "1px solid rgba(178,102,255,0.45)",
               background:
@@ -393,12 +376,12 @@ export default function ResultsPage({ result, onBack }) {
               transition: "all 0.25s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(178,102,255,0.4)";
-              e.currentTarget.style.color = "rgba(178,102,255,0.8)";
+              e.currentTarget.style.borderColor = "rgba(178,102,255,0.8)";
+              e.currentTarget.style.color = "#fff";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(130,145,190,0.15)";
-              e.currentTarget.style.color = "rgba(150,162,205,0.5)";
+              e.currentTarget.style.borderColor = "rgba(178,102,255,0.45)";
+              e.currentTarget.style.color = "#d4aaff";
             }}
           >
             ← New Analysis
