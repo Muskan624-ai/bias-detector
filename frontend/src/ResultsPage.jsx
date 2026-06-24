@@ -61,8 +61,8 @@ function Label({ children }) {
     <p
       style={{
         fontFamily: "'Space Mono', monospace",
-        fontSize: 18,
-        letterSpacing: "5px",
+        fontSize: 22,
+        letterSpacing: "6px",
         textTransform: "uppercase",
         color: "rgba(140,155,195,0.5)",
         marginBottom: 24,
@@ -89,7 +89,7 @@ export default function ResultsPage({ result, onBack }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "120px 5vw 48px",
+        padding: "180px 5vw 80px",
         overflowY: "auto",
       }}
       variants={pv}
@@ -100,12 +100,12 @@ export default function ResultsPage({ result, onBack }) {
       {/* Page header */}
       <motion.div
         variants={row}
-        style={{ textAlign: "center", marginBottom: 70 }}
+        style={{ textAlign: "center", marginBottom: 90 }}
       >
         <h1
           style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: "clamp(40px, 4vw, 60px)",
+            fontSize: "clamp(52px, 5vw, 72px)",
             fontWeight: 400,
             color: "rgba(200,210,235,0.55)",
             letterSpacing: "-0.5px",
@@ -117,7 +117,7 @@ export default function ResultsPage({ result, onBack }) {
         <p
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: 20,
+            fontSize: 24,
             color: "rgba(130,145,185,0.4)",
             letterSpacing: "2px",
           }}
@@ -216,7 +216,7 @@ export default function ResultsPage({ result, onBack }) {
           <Card
             glowColor={accent}
             style={{
-              padding: "60px 48px",
+              padding: "70px 60px",
               background: `linear-gradient(135deg, rgba(16,10,36,0.92) 0%, rgba(10,16,44,0.88) 100%)`,
               border: `1px solid ${accent}30`,
               boxShadow: `0 0 100px ${accent}0d, 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
@@ -251,7 +251,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(42px, 5vw, 68px)",
+                  fontSize: "clamp(36px, 4vw, 56px)",
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: is_biased ? "#d4aaff" : "#86f0ff",
@@ -307,7 +307,7 @@ export default function ResultsPage({ result, onBack }) {
               <span
                 style={{
                   fontFamily: "'Space Mono', monospace",
-                  fontSize: "clamp(32px, 4vw, 52px)",
+                  fontSize: "clamp(24px, 3vw, 40px)",
                   fontWeight: 400,
                   letterSpacing: "-1px",
                   color: "rgba(218,226,248,0.9)",
@@ -368,8 +368,8 @@ export default function ResultsPage({ result, onBack }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            paddingTop: 160,
-            paddingBottom: 160,
+            paddingTop: 70,
+            paddingBottom: 80,
           }}
         >
           <motion.button
