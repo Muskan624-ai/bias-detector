@@ -39,124 +39,82 @@ Can be downloaded from here: https://drive.google.com/drive/u/0/folders/1zY3jNMk
 - Multiple model versions tested and integrated successfully
 - Project structure stabilized for continued development
 
-# Bias Detector Frontend
+# Frontend (Lastest Work)
 
-Frontend interface for the **Bias Detector** project.
-
-This frontend allows users to paste text (articles, job descriptions, or statements) and send it to the backend model for **bias analysis**.
-
-The goal of this frontend is to provide an easy testing environment so team members can quickly evaluate model predictions without manually running scripts locally.
-
----
+Frontend application for the Bias Detector project built using React and Vite.
 
 ## Features
 
-- Clean and interactive UI
-- Paste any text for analysis
-- Real-time backend integration
-- Displays:
-  - Bias Type
-  - Confidence Score
-  - Model Prediction Label
-- User-friendly testing environment
-
----
+* Text analysis interface
+* Bias detection results page
+* Confidence score visualization
+* Animated neural network background
+* Smooth page transitions
+* Responsive user interface
+* Modern AI-inspired design
 
 ## Tech Stack
 
-### Frontend
-- Python
-- Streamlit
+* React
+* Vite
+* Framer Motion
+* JavaScript
+* HTML5 Canvas
+* CSS3
 
-### Backend Connection
-- FastAPI API integration
-- Requests library
-
----
-
-## How It Works
-
-1. User enters text in the input box.
-2. Frontend sends request to backend API.
-3. Backend model processes the text.
-4. Prediction result is displayed on screen.
-
----
-
-## Setup Instructions to run project locally 
-
-### Step 1: Clone the Repository
-
-```bash
-git clone <repository-link>
-cd Bias-detector
-```
-
-### Step 2: Install Dependencies
-
-Create Virtual Environment
-```bash
-.venv\Scripts\activate
-```
-
-Install required Python libraries:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-### Step 3: Install Git LFS (Required for Model File)
-
-Since the model file is large, install Git LFS.
-
-```bash
-git lfs install
-git lfs pull
-```
-
-This downloads the trained model (`model.safetensors`).
-
----
-
-### Step 4: Run Backend
-
-Open terminal inside project folder:
-
-```bash
-cd Backend
-python -m uvicorn main:app --reload
-```
-
-Backend runs on:
+## Project Structure
 
 ```text
-http://127.0.0.1:8000
+src/
+├── App.jsx
+├── LandingPage.jsx
+├── AnalysisPage.jsx
+├── ResultsPage.jsx
+├── LobeCanvas.jsx
+├── ConfidenceBar.jsx
+├── biasApi.js
+├── main.jsx
+└── index.css
 ```
 
-Keep this terminal running.
-
----
-
-### Step 5: Run Frontend
-
-Open a **new terminal** and go to project folder:
+## Installation
 
 ```bash
+git clone <repository-url>
 cd frontend
 npm install
+```
+
+## Running the Project
+
+```bash
 npm run dev
 ```
 
-Frontend runs on:
+Open:
 
 ```text
 http://localhost:5173
 ```
 
----
+## Build for Production
 
-## Important
+```bash
+npm run build
+```
 
-Both frontend and backend must run **simultaneously**.
+## Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Backend Connection
+
+Update the API endpoint in:
+
+```text
+src/biasApi.js
+```
+
+to connect with the FastAPI backend.
