@@ -1,9 +1,25 @@
-node_modules\
-Backend/model*/
+# Node.js
+frontend/node_modules/
+frontend/dist/
+
+# Python
 Backend/__pycache__/
-.vscode/
 *.pyc
 
+# ML model
+Backend/model*/
+
+# Environment variables
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Dataset files
 BABE_combined.csv
 SBIC_full_dataset.csv
 allsides_8values.csv
