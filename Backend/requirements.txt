@@ -2,9 +2,8 @@ transformers
 torch
 pandas
 scikit-learn
-evaluate
 fastapi
 uvicorn
-streamlit
 shap
 scipy
+pydantic
