@@ -1,6 +1,6 @@
 # Media Bias Detector
 -A machine learning project to identify political and media bias.  
--**Current Goal: Prove the text goes in, the model detects bias and the results are shown.**  
+-Deployed Link: https://bias-detector-gamma.vercel.app/ 
 
 # Datasets
 https://huggingface.co/datasets/mediabiasgroup/BABE
