@@ -99,16 +99,51 @@ Model predictions are supplemented with SHAP-based explanations to provide insig
 ## Project Structure
 
 ```text
-src/
-├── App.jsx
-├── LandingPage.jsx
-├── AnalysisPage.jsx
-├── ResultsPage.jsx
-├── LobeCanvas.jsx
-├── ConfidenceBar.jsx
-├── biasApi.js
-├── main.jsx
-└── index.css
+Bias-Detector/
+│
+├── Backend/
+│   │
+│   ├── model/
+│   │   ├── config.json
+│   │   ├── tokenizer.json
+│   │   └── tokenizer_config.json
+│   │
+│   ├── Dockerfile
+│   ├── main.py
+│   └── requirements.txt
+│
+├── data/
+│   ├── data.csv
+│   └── gitignore.txt
+│
+├── frontend/
+│   │
+│   ├── src/
+│   │   ├── AnalysisPage.jsx
+│   │   ├── App.jsx
+│   │   ├── BiasBadge.jsx
+│   │   ├── ConfidenceBar.jsx
+│   │   ├── LandingPage.jsx
+│   │   ├── LobeCanvas.jsx
+│   │   ├── ResultsPage.jsx
+│   │   ├── biasApi.js
+│   │   ├── index.css
+│   │   └── main.jsx
+│   │
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── vite.config.js
+│
+├── notebooks/
+│   ├── Data_Processing.ipynb
+│   └── data_cleaning.ipynb
+│
+├── .gitattributes
+├── .gitignore
+└── README.md
 ```
 
 ## Installation
